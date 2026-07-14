@@ -1,9 +1,62 @@
-﻿import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../hooks/useSocket';
 import { queuedToast } from '../lib/toastQueue';
+import { Activity, AlertTriangle, CheckCircle2, Clock, PackageSearch, Search, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+function MetricCard({ title, value, subtitle, icon: Icon, onClick, variant = 'default', delay = 0 }) {
+  const isCritical = variant === 'critical' && value > 0;
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay }}
+      onClick={onClick}
+      className={`relative p-5 rounded-xl cursor-pointer transition-all group overflow-hidden ${
+        isCritical
+          ? 'bg-[var(--critical-bg)] border border-[var(--critical-border)]'
+          : 'card hover:border-[var(--accent)] hover:shadow-md'
+      }`}
+    >
+      <div className="flex justify-between items-start mb-4">
+        <p className={`text-xs font-semibold uppercase tracking-wider ${
+          isCritical ? 'text-[var(--danger)] animate-pulse' : 'text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors'
+        }`}>
+          {title}
+        </p>
+        <div className={`p-2 rounded-lg ${isCritical ? 'bg-[var(--danger-muted)] text-[var(--danger)]' : 'bg-[var(--surface-raised)] text-[var(--text-tertiary)] group-hover:text-[var(--accent)] transition-colors'}`}>
+          <Icon className="w-4 h-4" />
+        </div>
+      </div>
+      
+      <p className={`text-3xl font-bold tracking-tight font-mono-code ${
+        isCritical ? 'text-[var(--danger)]' : 'text-[var(--text-primary)]'
+      }`}>
+        {value}
+      </p>
+      <p className="text-xs text-[var(--text-secondary)] mt-2 font-medium flex items-center gap-1">
+        {subtitle}
+      </p>
+    </motion.div>
+  );
+}
+
+function SkeletonMetricCard() {
+  return (
+    <div className="card p-5">
+      <div className="flex justify-between items-start mb-4">
+        <div className="w-24 h-4 skeleton" />
+        <div className="w-8 h-8 skeleton rounded-lg" />
+      </div>
+      <div className="w-16 h-8 skeleton mb-2" />
+      <div className="w-32 h-3 skeleton" />
+    </div>
+  );
+}
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -14,7 +67,6 @@ export default function Dashboard() {
   const { socket, isConnected } = useSocket();
 
   const fetchStats = useCallback(async () => {
-    setLoading(true);
     setError('');
     try {
       const token = localStorage.getItem('token');
@@ -41,28 +93,10 @@ export default function Dashboard() {
   useEffect(() => {
     if (!socket || !isConnected) return;
 
-    const handleDashboardRefresh = () => {
-      console.log('Dashboard refresh event received');
-      fetchStats();
-    };
-
-    const handleIssueCreated = (data) => {
-      console.log('New issue created:', data);
-      fetchStats();
-      queuedToast.success('New issue reported!');
-    };
-
-    const handleIssueResolved = (data) => {
-      console.log('Issue resolved:', data);
-      fetchStats();
-      queuedToast.success('Issue resolved successfully!');
-    };
-
-    const handleAssetCreated = (data) => {
-      console.log('New asset created:', data);
-      fetchStats();
-      queuedToast.success('New asset added!');
-    };
+    const handleDashboardRefresh = () => fetchStats();
+    const handleIssueCreated = () => { fetchStats(); queuedToast.success('New issue reported!'); };
+    const handleIssueResolved = () => { fetchStats(); queuedToast.success('Issue resolved successfully!'); };
+    const handleAssetCreated = () => { fetchStats(); queuedToast.success('New asset added!'); };
 
     socket.on('dashboard:refresh', handleDashboardRefresh);
     socket.on('issue:created', handleIssueCreated);
@@ -90,25 +124,17 @@ export default function Dashboard() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[var(--bg)] flex flex-col justify-center items-center">
-        <div className="w-10 h-10 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-sm text-[var(--text-secondary)]">Loading dashboard...</p>
-      </div>
-    );
-  }
-
   if (error) {
     return (
-      <div className="min-h-screen bg-[var(--bg)] flex flex-col justify-center items-center p-6">
-        <div className="bg-[var(--critical-bg)] border border-[var(--danger)] text-[var(--danger)] p-6 rounded-xl max-w-md text-center space-y-4">
+      <div className="min-h-[100dvh] bg-[var(--bg)] flex flex-col justify-center items-center p-6">
+        <div className="bg-[var(--critical-bg)] border border-[var(--danger)] text-[var(--danger)] p-6 rounded-xl max-w-md w-full text-center space-y-4">
+          <AlertTriangle className="w-8 h-8 mx-auto" />
           <p className="text-sm font-medium">{error}</p>
           <button
-            onClick={fetchStats}
-            className="w-full text-xs py-2 rounded-lg border border-[var(--danger)] text-[var(--danger)] hover:bg-[var(--danger)] hover:text-white transition-colors cursor-pointer"
+            onClick={() => { setLoading(true); fetchStats(); }}
+            className="btn-danger w-full mt-2"
           >
-            Retry Loading
+            Retry Connection
           </button>
         </div>
       </div>
@@ -116,29 +142,29 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] p-4 md:p-6 transition-colors">
-      <div className="max-w-6xl mx-auto space-y-8">
-
+    <div className="min-h-[100dvh] bg-[var(--bg)] p-4 md:p-6 transition-colors">
+      <div className="max-w-6xl mx-auto space-y-6 md:space-y-8">
+        
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[var(--border)] pb-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-2xl font-black text-[var(--text-primary)] tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-primary)] tracking-tight">
               Operational Control
             </h1>
-            <p className="text-xs text-[var(--text-secondary)] font-light mt-1">
-              Real-time asset telemetry, technician dispatch queues, and maintenance history pipelines.
+            <p className="text-sm text-[var(--text-secondary)] mt-1 font-medium">
+              Real-time asset telemetry, technician dispatch queues, and maintenance pipelines.
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2.5 w-full md:w-auto">
             <button
               onClick={() => navigate('/assets')}
-              className="btn-accent text-xs px-4 py-2"
+              className="btn-secondary flex-1 md:flex-none text-xs px-4"
             >
               Assets Catalog
             </button>
             <button
               onClick={() => navigate('/issues')}
-              className="text-xs px-4 py-2 rounded-lg border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent)] bg-[var(--surface)] transition-colors cursor-pointer"
+              className="btn-accent flex-1 md:flex-none text-xs px-4"
             >
               Issues Board
             </button>
@@ -146,130 +172,75 @@ export default function Dashboard() {
         </div>
 
         {/* Global Search */}
-        <form onSubmit={handleGlobalSearch} className="bg-[var(--surface)] border border-[var(--border)] p-4 rounded-xl flex gap-3 items-center">
-          <div className="flex-1 relative">
+        <form onSubmit={handleGlobalSearch} className="card p-2 md:p-2.5 flex gap-2 items-center">
+          <div className="flex-1 relative flex items-center">
+            <Search className="w-4 h-4 absolute left-3 text-[var(--text-tertiary)]" />
             <input
               type="text"
-              placeholder="Search assets or issues (e.g. AST-0001, ISS-0002, or general term)..."
+              placeholder="Search AST-0001, ISS-0002, or keywords..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="input-base font-mono-code"
+              className="w-full bg-transparent border-none text-[var(--text-primary)] text-sm py-2 pl-10 pr-10 outline-none font-mono-code placeholder:font-sans placeholder:text-[var(--text-tertiary)]"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-bold"
+                className="absolute right-3 p-1 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors rounded-md hover:bg-[var(--surface-raised)]"
               >
-                &times;
+                <X className="w-4 h-4" />
               </button>
             )}
           </div>
           <button
             type="submit"
-            className="text-xs px-4 py-2.5 rounded-lg border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--accent)] hover:border-[var(--accent)] bg-[var(--surface-raised)] transition-colors cursor-pointer font-semibold whitespace-nowrap"
+            className="btn-secondary px-5 py-2 text-sm whitespace-nowrap hidden md:block"
           >
             Search
           </button>
         </form>
 
         {/* Metric Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {/* Total Assets */}
-          <div
-            onClick={() => navigate('/assets')}
-            className="bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--accent)] p-5 rounded-xl cursor-pointer transition-all group col-span-1"
-          >
-            <p className="text-[10px] text-[var(--text-secondary)] uppercase tracking-widest font-bold group-hover:text-[var(--accent)] transition-colors">
-              Total Assets
-            </p>
-            <p className="text-3xl font-extrabold text-[var(--text-primary)] mt-2 font-mono-code">
-              {stats?.totalAssets || 0}
-            </p>
-            <p className="text-[10px] text-[var(--text-secondary)] mt-1 font-light">View catalog &rarr;</p>
-          </div>
-
-          {/* Open Issues */}
-          <div
-            onClick={() => navigate('/issues?status=Reported,Assigned,Inspection Started,Maintenance In Progress,Waiting for Parts,Reopened')}
-            className="bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--accent)] p-5 rounded-xl cursor-pointer transition-all group col-span-1"
-          >
-            <p className="text-[10px] text-[var(--text-secondary)] uppercase tracking-widest font-bold group-hover:text-[var(--accent)] transition-colors">
-              Open Incidents
-            </p>
-            <p className="text-3xl font-extrabold text-[var(--text-primary)] mt-2 font-mono-code">
-              {stats?.openIssues || 0}
-            </p>
-            <p className="text-[10px] text-[var(--text-secondary)] mt-1 font-light">Awaiting action &rarr;</p>
-          </div>
-
-          {/* Critical */}
-          <div
-            onClick={() => navigate('/issues?priority=Critical')}
-            className={`border p-5 rounded-xl cursor-pointer transition-all group col-span-1 ${
-              (stats?.criticalIssues || 0) > 0
-                ? 'bg-[var(--critical-bg)] border-[var(--danger)]'
-                : 'bg-[var(--surface)] border-[var(--border)] hover:border-[var(--accent)]'
-            }`}
-          >
-            <p className={`text-[10px] uppercase tracking-widest font-bold transition-colors ${
-              (stats?.criticalIssues || 0) > 0 ? 'text-[var(--danger)] animate-pulse' : 'text-[var(--text-secondary)] group-hover:text-[var(--accent)]'
-            }`}>
-              Critical
-            </p>
-            <p className={`text-3xl font-extrabold mt-2 font-mono-code ${
-              (stats?.criticalIssues || 0) > 0 ? 'text-[var(--danger)]' : 'text-[var(--text-primary)]'
-            }`}>
-              {stats?.criticalIssues || 0}
-            </p>
-            <p className="text-[10px] text-[var(--text-secondary)] mt-1 font-light">Risk overrides &rarr;</p>
-          </div>
-
-          {/* Resolved 7d */}
-          <div className="bg-[var(--surface)] border border-[var(--border)] p-5 rounded-xl col-span-1">
-            <p className="text-[10px] text-[var(--text-secondary)] uppercase tracking-widest font-bold">Resolved (7d)</p>
-            <p className="text-3xl font-extrabold text-[var(--text-primary)] mt-2 font-mono-code">
-              {stats?.resolvedThisWeek || 0}
-            </p>
-            <p className="text-[10px] text-[var(--text-secondary)] mt-1 font-light">Closed tasks</p>
-          </div>
-
-          {/* Avg Resolution */}
-          <div className="bg-[var(--surface)] border border-[var(--border)] p-5 rounded-xl col-span-1">
-            <p className="text-[10px] text-[var(--text-secondary)] uppercase tracking-widest font-bold">Avg Speed</p>
-            <p className="text-3xl font-extrabold text-[var(--text-primary)] mt-2 font-mono-code">
-              {stats?.avgResolutionTime !== undefined ? `${stats.avgResolutionTime}h` : '0h'}
-            </p>
-            <p className="text-[10px] text-[var(--text-secondary)] mt-1 font-light">Triage-to-close</p>
-          </div>
-        </div>
-
-        {/* Quick Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div
-            onClick={() => navigate('/assets')}
-            className="p-6 bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--accent)] rounded-xl cursor-pointer transition-all hover:-translate-y-0.5"
-          >
-            <h3 className="text-sm font-bold text-[var(--text-primary)] mb-2 flex items-center gap-2">
-              <span className="w-5 h-5 rounded bg-[var(--accent)] text-[var(--accent-contrast)] text-[10px] font-black flex items-center justify-center">A</span>
-              Asset Registry Index
-            </h3>
-            <p className="text-xs text-[var(--text-secondary)] font-light leading-relaxed">
-              Verify real-time conditions of all managed equipment. Perform full CRUD operations or acquire QR codes here.
-            </p>
-          </div>
-          <div
-            onClick={() => navigate('/issues')}
-            className="p-6 bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--accent)] rounded-xl cursor-pointer transition-all hover:-translate-y-0.5"
-          >
-            <h3 className="text-sm font-bold text-[var(--text-primary)] mb-2 flex items-center gap-2">
-              <span className="w-5 h-5 rounded bg-[var(--surface-raised)] border border-[var(--border)] text-[var(--text-secondary)] text-[10px] font-black flex items-center justify-center">I</span>
-              Incident Dispatch Desk
-            </h3>
-            <p className="text-xs text-[var(--text-secondary)] font-light leading-relaxed">
-              Update issue reports, configure ownership dispatch filters, and launch diagnostic state transitions on pending tickets.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          {loading ? (
+            Array.from({ length: 4 }).map((_, i) => <SkeletonMetricCard key={i} />)
+          ) : (
+            <>
+              <MetricCard
+                title="Total Assets"
+                value={stats?.totalAssets || 0}
+                subtitle="View catalog &rarr;"
+                icon={PackageSearch}
+                onClick={() => navigate('/assets')}
+                delay={0.1}
+              />
+              <MetricCard
+                title="Open Incidents"
+                value={stats?.openIssues || 0}
+                subtitle="Awaiting action &rarr;"
+                icon={Activity}
+                onClick={() => navigate('/issues?status=Reported,Assigned,Inspection Started,Maintenance In Progress,Waiting for Parts,Reopened')}
+                delay={0.2}
+              />
+              <MetricCard
+                title="Critical Incidents"
+                value={stats?.criticalIssues || 0}
+                subtitle="Risk overrides &rarr;"
+                icon={AlertTriangle}
+                variant="critical"
+                onClick={() => navigate('/issues?priority=Critical')}
+                delay={0.3}
+              />
+              <MetricCard
+                title="Resolved (7d)"
+                value={stats?.resolvedThisWeek || 0}
+                subtitle={`Avg ${stats?.avgResolutionTime !== undefined ? `${stats.avgResolutionTime}h` : '0h'} to close`}
+                icon={CheckCircle2}
+                onClick={() => navigate('/issues?status=Resolved,Closed')}
+                delay={0.4}
+              />
+            </>
+          )}
         </div>
 
       </div>

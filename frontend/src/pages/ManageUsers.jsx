@@ -4,11 +4,13 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import ConfirmModal from '../components/ConfirmModal';
+import { Users, UserPlus, Trash2, Power, ShieldAlert, CheckCircle2, XCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-const labelClass = 'text-[11px] text-[var(--text-secondary)] block uppercase tracking-wider font-semibold mb-1.5';
-const errorClass = 'text-[var(--danger)] text-[11px] mt-1';
+const labelClass = 'text-xs font-semibold text-[var(--text-secondary)] block mb-1.5';
+const errorClass = 'text-[var(--danger)] text-xs mt-1 font-medium';
 
 export default function ManageUsers() {
   const navigate = useNavigate();
@@ -25,11 +27,12 @@ export default function ManageUsers() {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  // Admin guard
   useEffect(() => {
     if (user.role !== 'admin') {
       toast.error('Admin access required.');
       navigate('/dashboard');
+    } else {
+      fetchTechnicians();
     }
   }, []);
 
@@ -46,8 +49,6 @@ export default function ManageUsers() {
       setListLoading(false);
     }
   };
-
-  useEffect(() => { fetchTechnicians(); }, []);
 
   const onSubmit = async (data) => {
     setCreating(true);
@@ -66,10 +67,6 @@ export default function ManageUsers() {
     }
   };
 
-  const handleDeleteUser = async (userId, userName) => {
-    setDeleteModal({ isOpen: true, userId, userName });
-  };
-
   const confirmDeleteUser = async () => {
     const { userId, userName } = deleteModal;
     try {
@@ -84,10 +81,6 @@ export default function ManageUsers() {
     } finally {
       setDeleteModal({ isOpen: false, userId: null, userName: '' });
     }
-  };
-
-  const handleToggleStatus = async (userId, userName, currentStatus) => {
-    setStatusModal({ isOpen: true, userId, userName, currentStatus });
   };
 
   const confirmToggleStatus = async () => {
@@ -107,232 +100,214 @@ export default function ManageUsers() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] p-4 md:p-6 transition-colors">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-[100dvh] bg-[var(--bg)] p-4 md:p-6 transition-colors pb-20">
+      <div className="max-w-5xl mx-auto space-y-6 md:space-y-8">
 
         {/* Page Header */}
         <div className="border-b border-[var(--border)] pb-5">
-          <h1 className="text-2xl font-semibold text-[var(--text-primary)] tracking-tight">Manage Users</h1>
-          <p className="text-sm text-[var(--text-secondary)] mt-1">
-            Register new platform accounts and view existing technician team members.
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-primary)] tracking-tight">Team Management</h1>
+          <p className="text-sm text-[var(--text-secondary)] mt-1 font-medium">
+            Register administrators and dispatch field technicians.
           </p>
         </div>
 
-        {/* Create User Form */}
-        <div className="card p-6">
-          <h2 className="text-lg font-medium text-[var(--text-primary)] mb-5 pb-3 border-b border-[var(--border)]">
-            Register New Account
-          </h2>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className={labelClass}>Full Name *</label>
-                <input
-                  {...register('name', { required: 'Name is required', minLength: { value: 2, message: 'At least 2 characters' } })}
-                  className="input-base"
-                  placeholder="e.g. Ali Hassan"
-                />
-                {errors.name && <p className={errorClass}>{errors.name.message}</p>}
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 items-start">
+          
+          {/* Create User Form (Left Col on Desktop) */}
+          <div className="lg:col-span-1 space-y-6">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="card p-6">
+              <h2 className="text-base font-bold text-[var(--text-primary)] mb-5 flex items-center gap-2">
+                <UserPlus className="w-5 h-5 text-[var(--accent)]" />
+                Register Account
+              </h2>
+              
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div>
+                  <label className={labelClass}>Full Name <span className="text-[var(--danger)]">*</span></label>
+                  <input
+                    {...register('name', { required: 'Name is required', minLength: { value: 2, message: 'At least 2 characters' } })}
+                    className="input-base"
+                    placeholder="e.g. Ali Hassan"
+                  />
+                  {errors.name && <p className={errorClass}>{errors.name.message}</p>}
+                </div>
 
-              <div>
-                <label className={labelClass}>Email Address *</label>
-                <input
-                  {...register('email', {
-                    required: 'Email is required',
-                    pattern: { value: /^\S+@\S+\.\S+$/, message: 'Enter a valid email' },
-                  })}
-                  type="email"
-                  className="input-base"
-                  placeholder="e.g. ali@company.com"
-                />
-                {errors.email && <p className={errorClass}>{errors.email.message}</p>}
-              </div>
+                <div>
+                  <label className={labelClass}>Email Address <span className="text-[var(--danger)]">*</span></label>
+                  <input
+                    {...register('email', {
+                      required: 'Email is required',
+                      pattern: { value: /^\S+@\S+\.\S+$/, message: 'Enter a valid email' },
+                    })}
+                    type="email"
+                    className="input-base"
+                    placeholder="name@company.com"
+                  />
+                  {errors.email && <p className={errorClass}>{errors.email.message}</p>}
+                </div>
 
-              <div>
-                <label className={labelClass}>Password *</label>
-                <input
-                  {...register('password', {
-                    required: 'Password is required',
-                    minLength: { value: 8, message: 'Minimum 8 characters' },
-                  })}
-                  type="password"
-                  className="input-base"
-                  placeholder="Minimum 8 characters"
-                />
-                {errors.password && <p className={errorClass}>{errors.password.message}</p>}
-              </div>
+                <div>
+                  <label className={labelClass}>Password <span className="text-[var(--danger)]">*</span></label>
+                  <input
+                    {...register('password', {
+                      required: 'Password is required',
+                      minLength: { value: 8, message: 'Minimum 8 characters' },
+                    })}
+                    type="password"
+                    className="input-base"
+                    placeholder="Minimum 8 characters"
+                  />
+                  {errors.password && <p className={errorClass}>{errors.password.message}</p>}
+                </div>
 
-              <div>
-                <label className={labelClass}>Role *</label>
-                <select
-                  {...register('role', { required: 'Role is required' })}
-                  className="input-base cursor-pointer"
-                >
-                  <option value="technician">Technician</option>
-                  <option value="admin">Admin</option>
-                </select>
-                {errors.role && <p className={errorClass}>{errors.role.message}</p>}
-              </div>
+                <div>
+                  <label className={labelClass}>Role <span className="text-[var(--danger)]">*</span></label>
+                  <select
+                    {...register('role', { required: 'Role is required' })}
+                    className="input-base cursor-pointer appearance-none"
+                  >
+                    <option value="technician">Technician</option>
+                    <option value="admin">Administrator</option>
+                  </select>
+                  {errors.role && <p className={errorClass}>{errors.role.message}</p>}
+                </div>
 
-              <div className="md:col-span-2">
-                <label className={labelClass}>Phone Number (Optional)</label>
-                <input
-                  {...register('phone')}
-                  type="tel"
-                  className="input-base"
-                  placeholder="e.g. +92 300 1234567"
-                />
-              </div>
-            </div>
+                <div>
+                  <label className={labelClass}>Phone Number</label>
+                  <input
+                    {...register('phone')}
+                    type="tel"
+                    className="input-base"
+                    placeholder="Optional"
+                  />
+                </div>
 
-            <div className="pt-2 flex gap-3">
-              <button
-                type="submit"
-                disabled={creating}
-                className="btn-accent px-6 py-2.5 text-sm"
-              >
-                {creating ? 'Creating...' : 'Create Account'}
-              </button>
-              <button
-                type="button"
-                onClick={() => reset()}
-                className="px-5 py-2.5 bg-[var(--surface-raised)] hover:bg-[var(--border)] text-[var(--text-secondary)] border border-[var(--border)] rounded-lg text-sm font-medium transition-colors cursor-pointer"
-              >
-                Clear
-              </button>
-            </div>
-          </form>
-        </div>
-
-        {/* Technicians List */}
-        <div className="card overflow-hidden">
-          <div className="px-6 py-4 border-b border-[var(--border)] flex items-center justify-between">
-            <h2 className="text-lg font-medium text-[var(--text-primary)]">Technician Team</h2>
-            <span className="font-mono-code text-[11px] text-[var(--text-secondary)] bg-[var(--surface-raised)] border border-[var(--border)] px-2 py-0.5 rounded">
-              {technicians.length} member{technicians.length !== 1 ? 's' : ''}
-            </span>
+                <div className="pt-2 flex flex-col gap-2">
+                  <button
+                    type="submit"
+                    disabled={creating}
+                    className="btn-accent w-full justify-center"
+                  >
+                    {creating ? 'Creating...' : 'Create Account'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => reset()}
+                    className="btn-secondary w-full justify-center text-xs"
+                  >
+                    Clear Form
+                  </button>
+                </div>
+              </form>
+            </motion.div>
           </div>
 
-          {listLoading ? (
-            <div className="py-12 text-center text-[var(--text-secondary)]">
-              <div className="w-6 h-6 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-              <p className="text-xs">Loading team members...</p>
-            </div>
-          ) : technicians.length === 0 ? (
-            <div className="py-12 text-center border-t border-[var(--border)]">
-              <div className="w-12 h-12 rounded-full bg-[var(--surface-raised)] flex items-center justify-center mx-auto mb-3 text-2xl">
-                👷
-              </div>
-              <p className="text-sm text-[var(--text-primary)] font-medium">No technicians yet</p>
-              <p className="text-xs text-[var(--text-secondary)] mt-1">Register a new account above to add your first team member.</p>
-            </div>
-          ) : (
-            <>
-              {/* Desktop table */}
-              <div className="hidden md:block overflow-x-auto">
-                <table className="w-full border-collapse text-left">
-                  <thead>
-                    <tr className="bg-[var(--surface-raised)] border-b border-[var(--border)] text-[10px] text-[var(--text-secondary)] uppercase tracking-widest font-bold">
-                      <th className="px-6 py-3">Name</th>
-                      <th className="px-6 py-3">Email</th>
-                      <th className="px-6 py-3">Phone</th>
-                      <th className="px-6 py-3">Status</th>
-                      <th className="px-6 py-3">Joined</th>
-                      <th className="px-6 py-3">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[var(--border)] text-sm">
-                    {technicians.map((tech) => (
-                      <tr key={tech._id} className="hover:bg-[var(--surface-raised)] transition-colors">
-                        <td className="px-6 py-3 font-medium text-[var(--text-primary)]">{tech.name}</td>
-                        <td className="px-6 py-3 text-[var(--text-secondary)] font-mono-code text-xs">{tech.email}</td>
-                        <td className="px-6 py-3 text-[var(--text-secondary)] text-xs">{tech.phone || '—'}</td>
-                        <td className="px-6 py-3">
-                          <span className={`text-xs px-2 py-1 rounded-full ${tech.isActive ? 'bg-[var(--success)] text-white' : 'bg-[var(--danger)] text-white'}`}>
-                            {tech.isActive ? 'Active' : 'Inactive'}
-                          </span>
-                        </td>
-                        <td className="px-6 py-3 text-[var(--text-secondary)] text-xs font-mono-code">
-                          {tech.createdAt ? new Date(tech.createdAt).toLocaleDateString() : '—'}
-                        </td>
-                        <td className="px-6 py-3">
-                          <div className="flex gap-2">
-                            <button
-                              onClick={() => handleToggleStatus(tech._id, tech.name, tech.isActive)}
-                              className={`text-xs px-2 py-1 rounded ${tech.isActive ? 'bg-[var(--warning)] text-white' : 'bg-[var(--success)] text-white'} hover:opacity-80`}
-                            >
-                              {tech.isActive ? 'Deactivate' : 'Activate'}
-                            </button>
-                            <button
-                              onClick={() => handleDeleteUser(tech._id, tech.name)}
-                              className="text-xs px-2 py-1 bg-[var(--danger)] text-white rounded hover:opacity-80"
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          {/* Technicians List (Right Col on Desktop) */}
+          <div className="lg:col-span-2 space-y-6">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="card overflow-hidden">
+              <div className="px-6 py-5 border-b border-[var(--border)] flex items-center justify-between bg-[var(--surface-raised)]">
+                <h2 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
+                  <Users className="w-5 h-5 text-[var(--text-secondary)]" />
+                  Team Directory
+                </h2>
+                <span className="font-mono-code text-xs font-semibold text-[var(--text-secondary)] bg-[var(--surface)] border border-[var(--border)] px-2.5 py-1 rounded-md shadow-sm">
+                  {technicians.length} Member{technicians.length !== 1 ? 's' : ''}
+                </span>
               </div>
 
-              {/* Mobile cards */}
-              <div className="md:hidden divide-y divide-[var(--border)]">
-                {technicians.map((tech) => (
-                  <div key={tech._id} className="px-5 py-4 space-y-2">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="text-sm font-semibold text-[var(--text-primary)]">{tech.name}</p>
-                        <p className="text-xs text-[var(--text-secondary)] font-mono-code">{tech.email}</p>
-                        {tech.phone && <p className="text-xs text-[var(--text-secondary)]">{tech.phone}</p>}
-                      </div>
-                      <span className={`text-xs px-2 py-1 rounded-full ${tech.isActive ? 'bg-[var(--success)] text-white' : 'bg-[var(--danger)] text-white'}`}>
-                        {tech.isActive ? 'Active' : 'Inactive'}
-                      </span>
-                    </div>
-                    <div className="flex gap-2 pt-2">
-                      <button
-                        onClick={() => handleToggleStatus(tech._id, tech.name, tech.isActive)}
-                        className={`text-xs px-3 py-1.5 rounded flex-1 ${tech.isActive ? 'bg-[var(--warning)] text-white' : 'bg-[var(--success)] text-white'} hover:opacity-80`}
-                      >
-                        {tech.isActive ? 'Deactivate' : 'Activate'}
-                      </button>
-                      <button
-                        onClick={() => handleDeleteUser(tech._id, tech.name)}
-                        className="text-xs px-3 py-1.5 bg-[var(--danger)] text-white rounded flex-1 hover:opacity-80"
-                      >
-                        Delete
-                      </button>
-                    </div>
+              {listLoading ? (
+                <div className="space-y-0 divide-y divide-[var(--border)]">
+                   {Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="h-[72px] skeleton rounded-none" />
+                  ))}
+                </div>
+              ) : technicians.length === 0 ? (
+                <div className="py-16 text-center">
+                  <div className="w-16 h-16 rounded-full bg-[var(--surface-raised)] flex items-center justify-center mx-auto mb-4 text-[var(--text-tertiary)] border border-[var(--border)]">
+                    <Users className="w-8 h-8" />
                   </div>
-                ))}
-              </div>
-            </>
-          )}
+                  <p className="text-base font-semibold text-[var(--text-primary)]">No members found</p>
+                  <p className="text-sm text-[var(--text-secondary)] mt-1 font-medium">Use the form to register your first team member.</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-[var(--border)]">
+                  {technicians.map((tech) => (
+                    <div key={tech._id} className="p-4 md:p-6 hover:bg-[var(--surface-raised)] transition-colors group">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-[var(--surface)] border border-[var(--border)] shadow-sm flex items-center justify-center text-sm font-bold text-[var(--text-secondary)] uppercase shrink-0">
+                            {tech.name.charAt(0)}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2 mb-0.5">
+                              <p className="text-sm font-bold text-[var(--text-primary)] leading-none">{tech.name}</p>
+                              {tech.isActive ? (
+                                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--success)] bg-[var(--success-muted)] px-1.5 py-0.5 rounded border border-[var(--success-muted)]">
+                                  <CheckCircle2 className="w-3 h-3" /> Active
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--text-secondary)] bg-[var(--surface-raised)] px-1.5 py-0.5 rounded border border-[var(--border)]">
+                                  <XCircle className="w-3 h-3" /> Inactive
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-[var(--text-secondary)] font-mono-code">{tech.email}</p>
+                            {tech.phone && <p className="text-xs text-[var(--text-tertiary)] mt-0.5">{tech.phone}</p>}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 self-start sm:self-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity ml-14 sm:ml-0">
+                          <button
+                            onClick={() => setStatusModal({ isOpen: true, userId: tech._id, userName: tech.name, currentStatus: tech.isActive })}
+                            className={`p-2 rounded-lg border transition-colors ${
+                              tech.isActive 
+                                ? 'bg-[var(--surface)] text-[var(--warning)] border-[var(--border)] hover:bg-[var(--warning-muted)] hover:border-[var(--warning)]' 
+                                : 'bg-[var(--surface)] text-[var(--success)] border-[var(--border)] hover:bg-[var(--success-muted)] hover:border-[var(--success)]'
+                            }`}
+                            title={tech.isActive ? 'Deactivate Account' : 'Activate Account'}
+                          >
+                            <Power className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => setDeleteModal({ isOpen: true, userId: tech._id, userName: tech.name })}
+                            className="p-2 rounded-lg bg-[var(--surface)] text-[var(--danger)] border border-[var(--border)] hover:bg-[var(--danger-muted)] hover:border-[var(--danger)] transition-colors"
+                            title="Delete Account"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          </div>
+
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
       <ConfirmModal
         isOpen={deleteModal.isOpen}
         onClose={() => setDeleteModal({ isOpen: false, userId: null, userName: '' })}
         onConfirm={confirmDeleteUser}
-        title="Delete User"
-        message={`Are you sure you want to delete "${deleteModal.userName}"? This action cannot be undone.`}
-        confirmText="Delete"
+        title="Delete User Account"
+        message={`Are you sure you want to permanently delete "${deleteModal.userName}"? This action cannot be undone.`}
+        confirmText="Delete Account"
         cancelText="Cancel"
         danger={true}
       />
 
-      {/* Status Toggle Confirmation Modal */}
       <ConfirmModal
         isOpen={statusModal.isOpen}
         onClose={() => setStatusModal({ isOpen: false, userId: null, userName: null, currentStatus: null })}
         onConfirm={confirmToggleStatus}
         title={`${statusModal.currentStatus ? 'Deactivate' : 'Activate'} User`}
-        message={`Are you sure you want to ${statusModal.currentStatus ? 'deactivate' : 'activate'} "${statusModal.userName}"?`}
+        message={statusModal.currentStatus 
+          ? `Deactivating "${statusModal.userName}" will prevent them from logging in until reactivated.` 
+          : `Activating "${statusModal.userName}" will restore their login access.`}
         confirmText={statusModal.currentStatus ? 'Deactivate' : 'Activate'}
         cancelText="Cancel"
         danger={statusModal.currentStatus}

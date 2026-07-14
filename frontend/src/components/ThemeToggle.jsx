@@ -12,8 +12,8 @@ export default function ThemeToggle({ className = '' }) {
       title={isDark ? 'Light mode' : 'Dark mode'}
       className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors cursor-pointer
         text-[var(--text-secondary)] hover:text-[var(--text-primary)]
-        hover:bg-[var(--surface-raised)] border border-transparent
-        hover:border-[var(--border)] ${className}`}
+        bg-[var(--surface-raised)] border border-[var(--border)]
+        hover:border-[var(--border-hover)] ${className}`}
     >
       {isDark
         ? <Sun size={16} strokeWidth={2} />

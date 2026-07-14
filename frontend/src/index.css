@@ -1,3 +1,8 @@
+/* ============================================================
+   GOOGLE FONTS — Inter (UI) + JetBrains Mono (codes/IDs)
+   Must precede all other statements per CSS @import rules.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 /* Dark-mode via .dark class on <html> */
@@ -10,40 +15,47 @@
 }
 
 /* ============================================================
-   GOOGLE FONTS — Inter (UI) + JetBrains Mono (codes/IDs)
-   ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
-/* ============================================================
    DESIGN TOKENS: "Inspection Ticket" visual identity
    Light = "Daylight", Dark = "Night Shift"
    ============================================================ */
 :root {
   /* Surfaces */
-  --bg:             #FAFAF7;
+  --bg:             #FAFAFA;
   --surface:        #FFFFFF;
-  --surface-raised: #F5F4F0;
-  --border:         #E5E3DC;
+  --surface-raised: #F4F4F5;
+  --surface-hover:  #E5E7EB;
+  --border:         #E5E7EB;
+  --border-hover:   #D1D5DB;
 
   /* Text */
-  --text-primary:   #1C1C1E;
-  --text-secondary: #6B6B66;
+  --text-primary:   #09090B;
+  --text-secondary: #52525B;
+  --text-tertiary:  #A1A1AA;
 
   /* Signature accent: safety amber */
-  --accent:         #D97706;
-  --accent-hover:   #B45309;
+  --accent:         #F59E0B;
+  --accent-hover:   #D97706;
   --accent-contrast:#FFFFFF;
+  --accent-muted:   #FEF3C7;
+  --accent-muted-text: #92400E;
 
   /* Semantic colors */
-  --success:        #16A34A;
-  --warning:        #D97706;
-  --danger:         #DC2626;
+  --success:        #10B981;
+  --success-muted:  #D1FAE5;
+  --success-text:   #065F46;
+  --warning:        #F59E0B;
+  --warning-muted:  #FEF3C7;
+  --warning-text:   #92400E;
+  --danger:         #EF4444;
+  --danger-muted:   #FEE2E2;
+  --danger-text:    #991B1B;
+
   --critical-bg:    #FEF2F2;
   --critical-border:#FECACA;
 
   /* Status badge fills (light theme at reduced opacity) */
-  --status-reported-bg:   #FEF9C3;
-  --status-reported-text: #854D0E;
+  --status-reported-bg:   #FEF3C7;
+  --status-reported-text: #92400E;
   --status-assigned-bg:   #DBEAFE;
   --status-assigned-text: #1E40AF;
   --status-inspection-bg: #EDE9FE;
@@ -52,54 +64,66 @@
   --status-maintenance-text:#9A3412;
   --status-waiting-bg:    #F3E8FF;
   --status-waiting-text:  #6B21A8;
-  --status-resolved-bg:   #DCFCE7;
-  --status-resolved-text: #14532D;
+  --status-resolved-bg:   #D1FAE5;
+  --status-resolved-text: #065F46;
   --status-closed-bg:     #F3F4F6;
   --status-closed-text:   #374151;
-  --status-reopened-bg:   #FFE4E6;
-  --status-reopened-text: #9F1239;
+  --status-reopened-bg:   #FEE2E2;
+  --status-reopened-text: #991B1B;
 }
 
 .dark {
   /* Surfaces */
-  --bg:             #14161B;
-  --surface:        #1B1E25;
-  --surface-raised: #24272F;
-  --border:         #2E323C;
+  --bg:             #09090B;
+  --surface:        #18181B;
+  --surface-raised: #27272A;
+  --surface-hover:  #3F3F46;
+  --border:         #27272A;
+  --border-hover:   #3F3F46;
 
   /* Text */
-  --text-primary:   #F2F1ED;
-  --text-secondary: #9B9B94;
+  --text-primary:   #FAFAFA;
+  --text-secondary: #A1A1AA;
+  --text-tertiary:  #71717A;
 
   /* Signature accent: brighter amber for dark */
   --accent:         #F59E0B;
   --accent-hover:   #FBBF24;
-  --accent-contrast:#14161B;
+  --accent-contrast:#09090B;
+  --accent-muted:   #451A03;
+  --accent-muted-text: #FDE68A;
 
   /* Semantic colors */
-  --success:        #22C55E;
+  --success:        #10B981;
+  --success-muted:  #064E3B;
+  --success-text:   #A7F3D0;
   --warning:        #F59E0B;
+  --warning-muted:  #451A03;
+  --warning-text:   #FDE68A;
   --danger:         #EF4444;
-  --critical-bg:    #2A1414;
+  --danger-muted:   #7F1D1D;
+  --danger-text:    #FECACA;
+
+  --critical-bg:    #450A0A;
   --critical-border:#7F1D1D;
 
   /* Status badge fills (dark theme) */
-  --status-reported-bg:   #422006;
+  --status-reported-bg:   #451A03;
   --status-reported-text: #FDE68A;
-  --status-assigned-bg:   #1E3A5F;
-  --status-assigned-text: #93C5FD;
-  --status-inspection-bg: #2D1B69;
-  --status-inspection-text:#C4B5FD;
-  --status-maintenance-bg:#431407;
-  --status-maintenance-text:#FED7AA;
-  --status-waiting-bg:    #3B0764;
-  --status-waiting-text:  #D8B4FE;
-  --status-resolved-bg:   #052E16;
-  --status-resolved-text: #86EFAC;
+  --status-assigned-bg:   #1E3A8A;
+  --status-assigned-text: #BFDBFE;
+  --status-inspection-bg: #4C1D95;
+  --status-inspection-text:#DDD6FE;
+  --status-maintenance-bg:#7C2D12;
+  --status-maintenance-text:#FFEDD5;
+  --status-waiting-bg:    #581C87;
+  --status-waiting-text:  #E9D5FF;
+  --status-resolved-bg:   #064E3B;
+  --status-resolved-text: #A7F3D0;
   --status-closed-bg:     #1F2937;
-  --status-closed-text:   #9CA3AF;
-  --status-reopened-bg:   #4C0519;
-  --status-reopened-text: #FDA4AF;
+  --status-closed-text:   #D1D5DB;
+  --status-reopened-bg:   #7F1D1D;
+  --status-reopened-text: #FECACA;
 }
 
 /* ============================================================
@@ -138,13 +162,14 @@ body {
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 2px 10px;
+  border-radius: 9999px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   border: 1px solid transparent;
+  white-space: nowrap;
 }
 
 /* Status badges */
@@ -161,7 +186,7 @@ body {
 .badge-low      { background: var(--status-closed-bg);      color: var(--status-closed-text); }
 .badge-medium   { background: var(--status-assigned-bg);    color: var(--status-assigned-text); }
 .badge-high     { background: var(--status-maintenance-bg); color: var(--status-maintenance-text); }
-.badge-critical { background: var(--critical-bg); color: var(--danger); border-color: var(--critical-border); }
+.badge-critical { background: var(--critical-bg); color: var(--danger-text); border-color: var(--critical-border); }
 
 /* ============================================================
    UTILITY HELPERS
@@ -171,34 +196,139 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.dark .card {
+  box-shadow: none;
 }
 
 /* Input base */
 .input-base {
-  background: var(--surface-raised);
+  background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text-primary);
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 13px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
   width: 100%;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
-.input-base::placeholder { color: var(--text-secondary); }
-.input-base:focus { border-color: var(--accent); }
+.dark .input-base {
+  box-shadow: none;
+  background: var(--surface-raised);
+}
+.input-base::placeholder { color: var(--text-tertiary); }
+.input-base:focus { 
+  border-color: var(--accent); 
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.input-base:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--surface-raised);
+}
 
-/* Accent button */
+/* Buttons */
 .btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--accent);
   color: var(--accent-contrast);
   border-radius: 8px;
-  padding: 10px 18px;
-  font-size: 13px;
-  font-weight: 600;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
   border: none;
   cursor: pointer;
-  transition: background 0.15s, opacity 0.15s;
+  transition: background 0.15s, opacity 0.15s, transform 0.1s;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
-.btn-accent:hover  { background: var(--accent-hover); }
-.btn-accent:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-accent:hover:not(:disabled) { 
+  background: var(--accent-hover); 
+}
+.btn-accent:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.btn-accent:disabled { 
+  opacity: 0.5; 
+  cursor: not-allowed; 
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+.btn-secondary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--danger);
+  color: #FFFFFF;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s, transform 0.1s;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+.btn-danger:hover:not(:disabled) { 
+  background: #DC2626; 
+}
+.btn-danger:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.btn-danger:disabled { 
+  opacity: 0.5; 
+  cursor: not-allowed; 
+}
+
+/* Skeleton Loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-raised) 25%,
+    var(--surface-hover) 50%,
+    var(--surface-raised) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

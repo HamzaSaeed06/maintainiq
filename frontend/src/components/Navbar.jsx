@@ -1,7 +1,8 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ThemeToggle from './ThemeToggle';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -17,9 +18,9 @@ export default function Navbar() {
   };
 
   const navLinkClass = ({ isActive }) =>
-    `text-xs font-semibold px-3 py-1.5 rounded-md transition-colors ${
+    `text-sm font-medium px-3 py-1.5 rounded-md transition-colors ${
       isActive
-        ? 'bg-[var(--accent)] text-[var(--accent-contrast)]'
+        ? 'bg-[var(--surface-raised)] text-[var(--text-primary)]'
         : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-raised)]'
     }`;
 
@@ -27,13 +28,17 @@ export default function Navbar() {
     <nav className="bg-[var(--surface)] border-b border-[var(--border)] px-4 md:px-6 py-3 sticky top-0 z-40 transition-colors">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         {/* Brand */}
-        <NavLink to="/dashboard" className="flex items-center gap-2 shrink-0">
-          <span className="w-7 h-7 rounded-md bg-[var(--accent)] flex items-center justify-center text-[var(--accent-contrast)] font-black text-sm">M</span>
-          <span className="text-sm font-black text-[var(--text-primary)] tracking-tight hidden sm:block">MaintainIQ</span>
+        <NavLink to="/dashboard" className="flex items-center gap-2.5 shrink-0 group">
+          <div className="w-8 h-8 rounded-lg bg-[var(--accent)] flex items-center justify-center text-[var(--accent-contrast)] font-black text-sm shadow-sm group-hover:scale-105 transition-transform">
+            M
+          </div>
+          <span className="text-base font-bold text-[var(--text-primary)] tracking-tight hidden sm:block">
+            MaintainIQ
+          </span>
         </NavLink>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-1.5 ml-8 mr-auto">
           {isAdmin && <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>}
           {isAdmin && <NavLink to="/assets" className={navLinkClass}>Assets</NavLink>}
           <NavLink to="/issues" className={navLinkClass}>Issues</NavLink>
@@ -41,21 +46,24 @@ export default function Navbar() {
         </div>
 
         {/* Right side */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <ThemeToggle />
-          <div className="hidden md:flex items-center gap-2">
-            <span className={`font-mono-code text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider border ${
-              isAdmin
-                ? 'bg-[var(--surface-raised)] text-[var(--accent)] border-[var(--border)]'
-                : 'bg-[var(--surface-raised)] text-[var(--text-secondary)] border-[var(--border)]'
-            }`}>
-              {user.role || 'guest'}
-            </span>
-            <span className="text-xs text-[var(--text-secondary)] truncate max-w-[120px]">{user.name || 'User'}</span>
+          <div className="hidden md:flex items-center gap-3 pl-3 border-l border-[var(--border)]">
+            <div className="flex flex-col items-end">
+              <span className="text-sm font-medium text-[var(--text-primary)] leading-tight truncate max-w-[120px]">
+                {user.name || 'User'}
+              </span>
+              <span className="font-mono-code text-[10px] text-[var(--text-secondary)] uppercase tracking-wider">
+                {user.role || 'guest'}
+              </span>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-[var(--surface-raised)] border border-[var(--border)] flex items-center justify-center text-sm font-semibold text-[var(--text-secondary)] uppercase">
+              {(user.name || 'U').charAt(0)}
+            </div>
           </div>
           <button
             onClick={handleLogout}
-            className="hidden md:block text-xs text-[var(--text-secondary)] hover:text-[var(--danger)] bg-[var(--surface-raised)] px-3 py-1.5 rounded-md border border-[var(--border)] transition-colors cursor-pointer font-semibold"
+            className="hidden md:block text-sm text-[var(--text-secondary)] hover:text-[var(--danger)] ml-2 transition-colors cursor-pointer font-medium"
           >
             Sign Out
           </button>
@@ -63,7 +71,7 @@ export default function Navbar() {
           {/* Mobile burger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-[var(--text-secondary)] hover:text-[var(--text-primary)] p-1.5 rounded-lg hover:bg-[var(--surface-raised)] transition-colors"
+            className="md:hidden text-[var(--text-secondary)] hover:text-[var(--text-primary)] p-2 rounded-lg hover:bg-[var(--surface-raised)] transition-colors"
             aria-label="Toggle menu"
           >
             {mobileOpen ? (
@@ -80,43 +88,54 @@ export default function Navbar() {
       </div>
 
       {/* Mobile dropdown */}
-      {mobileOpen && (
-        <div className="md:hidden mt-3 border-t border-[var(--border)] pt-3 space-y-1 pb-1 flex flex-col gap-1">
-          {isAdmin && (
-            <NavLink to="/dashboard" className={navLinkClass} onClick={() => setMobileOpen(false)}>
-              Dashboard
-            </NavLink>
-          )}
-          {isAdmin && (
-            <NavLink to="/assets" className={navLinkClass} onClick={() => setMobileOpen(false)}>
-              Assets
-            </NavLink>
-          )}
-          <NavLink to="/issues" className={navLinkClass} onClick={() => setMobileOpen(false)}>
-            Issues
-          </NavLink>
-          {isAdmin && (
-            <NavLink to="/users" className={navLinkClass} onClick={() => setMobileOpen(false)}>
-              Users
-            </NavLink>
-          )}
-          <div className="flex items-center justify-between pt-2 mt-2 border-t border-[var(--border)]">
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <span className="text-[10px] px-2 py-0.5 rounded font-bold uppercase text-[var(--text-secondary)] bg-[var(--surface-raised)]">
-                {user.role || 'guest'}
-              </span>
-              <span className="text-xs text-[var(--text-secondary)]">{user.name}</span>
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="md:hidden overflow-hidden"
+          >
+            <div className="pt-4 pb-2 space-y-1 flex flex-col gap-1 border-t border-[var(--border)] mt-3">
+              {isAdmin && (
+                <NavLink to="/dashboard" className={navLinkClass} onClick={() => setMobileOpen(false)}>
+                  Dashboard
+                </NavLink>
+              )}
+              {isAdmin && (
+                <NavLink to="/assets" className={navLinkClass} onClick={() => setMobileOpen(false)}>
+                  Assets
+                </NavLink>
+              )}
+              <NavLink to="/issues" className={navLinkClass} onClick={() => setMobileOpen(false)}>
+                Issues
+              </NavLink>
+              {isAdmin && (
+                <NavLink to="/users" className={navLinkClass} onClick={() => setMobileOpen(false)}>
+                  Users
+                </NavLink>
+              )}
+              <div className="flex items-center justify-between pt-4 mt-2 border-t border-[var(--border)]">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[var(--surface-raised)] border border-[var(--border)] flex items-center justify-center text-sm font-semibold text-[var(--text-secondary)] uppercase">
+                    {(user.name || 'U').charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-[var(--text-primary)]">{user.name}</p>
+                    <p className="text-xs text-[var(--text-secondary)] uppercase tracking-wider">{user.role}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm text-[var(--danger)] font-medium cursor-pointer px-3 py-1.5"
+                >
+                  Sign Out
+                </button>
+              </div>
             </div>
-            <button
-              onClick={handleLogout}
-              className="text-xs text-[var(--danger)] font-semibold cursor-pointer"
-            >
-              Sign Out
-            </button>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

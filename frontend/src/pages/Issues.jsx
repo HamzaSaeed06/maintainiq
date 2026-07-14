@@ -4,6 +4,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../hooks/useSocket';
 import { queuedToast } from '../lib/toastQueue';
+import { Search, Filter, AlertTriangle, ArrowRight, User } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const STATUS_OPTIONS = ['Reported', 'Assigned', 'Inspection Started', 'Maintenance In Progress', 'Waiting for Parts', 'Resolved', 'Closed', 'Reopened'];
 
@@ -47,13 +49,7 @@ export default function Issues() {
   const [technicians, setTechnicians] = useState([]);
   const [selectedTech, setSelectedTech] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const { socket, isConnected } = useSocket();
-
-  // Debug: Log socket connection status
-  useEffect(() => {
-    console.log('[Issues Page] Socket connection status:', isConnected);
-    console.log('[Issues Page] Socket object:', socket);
-  }, [socket, isConnected]);
+  const { socket } = useSocket();
 
   const fetchTechnicians = useCallback(async () => {
     try {
@@ -64,13 +60,11 @@ export default function Issues() {
       });
       setTechnicians(res.data.data || []);
     } catch (e) {
-      console.error('Failed to load technicians list:', e);
-      toast.error('Failed to retrieve technicians list');
+      console.error('Failed to load technicians:', e);
     }
   }, []);
 
   const fetchIssues = useCallback(async () => {
-    console.log('[Issues Page] fetchIssues called');
     setLoading(true);
     setError('');
     try {
@@ -82,19 +76,12 @@ export default function Issues() {
       if (search) params.search = search;
 
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-      console.log('[Issues Page] Fetching issues with params:', params);
-      
       const res = await axios.get(`${API_URL}/issues`, {
         params,
         headers: { Authorization: `Bearer ${token}` }
       });
-      
-      console.log('[Issues Page] API response:', res.data);
-      console.log('[Issues Page] Issues received:', res.data.data?.length || 0);
-      
       setIssues(res.data.data);
     } catch (err) {
-      console.error('[Issues Page] Fetch error:', err);
       const msg = err.response?.data?.error?.message || 'Failed to load issues.';
       setError(msg);
       toast.error(msg);
@@ -115,276 +102,186 @@ export default function Issues() {
     if (user.role === 'admin') fetchTechnicians();
   }, [fetchTechnicians]);
 
-  // Listen for real-time issue updates
   useEffect(() => {
-    console.log('[Issues Page] Socket listener useEffect running');
-    console.log('[Issues Page] Socket exists:', !!socket);
-    console.log('[Issues Page] Is connected:', isConnected);
-    console.log('[Issues Page] Current user role:', isAdmin ? 'admin' : 'technician/other');
-
-    const handleIssueCreated = (data) => {
-      console.log('[Issues Page] New issue created:', data);
-      console.log('[Issues Page] Calling fetchIssues()');
-      fetchIssues();
-      queuedToast.success('New issue reported!');
-    };
-
-    const handleIssueAssigned = (data) => {
-      console.log('[Issues Page] Issue assigned:', data);
-      console.log('[Issues Page] Calling fetchIssues()');
-      fetchIssues();
-      
-      // Only show toast if current user is the assigned technician
-      const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-      console.log('[Issues Page] Current user ID:', currentUser._id);
-      console.log('[Issues Page] Assigned technician:', data.assignedTechnician);
-      
-      // Handle both string ID and object with _id
-      const assignedTechnicianId = typeof data.assignedTechnician === 'string' 
-        ? data.assignedTechnician 
-        : data.assignedTechnician?._id;
-      
-      console.log('[Issues Page] Assigned technician ID:', assignedTechnicianId);
-      
-      if (assignedTechnicianId && assignedTechnicianId === currentUser._id) {
-        console.log('[Issues Page] Showing toast for assigned technician');
-        queuedToast.success('New issue assigned to you!');
-      } else {
-        console.log('[Issues Page] Not showing toast - not assigned to this user');
-      }
-    };
-
-    const handleIssueStatusUpdated = (data) => {
-      console.log('[Issues Page] Issue status updated:', data);
-      console.log('[Issues Page] Calling fetchIssues()');
-      fetchIssues();
-    };
-
-    const handleMaintenanceLogged = (data) => {
-      console.log('[Issues Page] Maintenance logged:', data);
-      console.log('[Issues Page] Calling fetchIssues()');
-      fetchIssues();
-      queuedToast.success('Maintenance work logged!');
-    };
-
-    const handleIssueResolved = (data) => {
-      console.log('[Issues Page] Issue resolved:', data);
-      console.log('[Issues Page] Calling fetchIssues()');
-      fetchIssues();
-      queuedToast.success('Issue resolved successfully!');
-    };
-
-    const handleIssueUnassigned = (data) => {
-      console.log('[Issues Page] Issue unassigned:', data);
-      console.log('[Issues Page] Calling fetchIssues()');
-      fetchIssues();
-      
-      // Show toast if current user was the assigned technician
-      const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-      console.log('[Issues Page] Current user ID:', currentUser._id);
-      
-      if (currentUser._id) {
-        console.log('[Issues Page] Issue unassigned notification');
-        queuedToast.success('Issue unassigned');
-      }
-    };
-
-    // Set up listeners even if socket is not connected yet
     if (socket) {
-      console.log('[Issues Page] Registering socket listeners');
-      socket.on('issue:created', handleIssueCreated);
-      socket.on('issue:assigned', handleIssueAssigned);
-      socket.on('issue:unassigned', handleIssueUnassigned);
-      socket.on('issue:status_updated', handleIssueStatusUpdated);
-      socket.on('maintenance:logged', handleMaintenanceLogged);
-      socket.on('issue:resolved', handleIssueResolved);
-      console.log('[Issues Page] Socket listeners registered');
-    } else {
-      console.log('[Issues Page] Socket not available, listeners not registered');
-    }
+      const refetch = () => fetchIssues();
+      socket.on('issue:created', () => { refetch(); queuedToast.success('New issue reported!'); });
+      socket.on('issue:assigned', () => refetch());
+      socket.on('issue:unassigned', () => refetch());
+      socket.on('issue:status_updated', () => refetch());
+      socket.on('maintenance:logged', () => refetch());
+      socket.on('issue:resolved', () => refetch());
 
-    return () => {
-      if (socket) {
-        socket.off('issue:created', handleIssueCreated);
-        socket.off('issue:assigned', handleIssueAssigned);
-        socket.off('issue:unassigned', handleIssueUnassigned);
-        socket.off('issue:status_updated', handleIssueStatusUpdated);
-        socket.off('maintenance:logged', handleMaintenanceLogged);
-        socket.off('issue:resolved', handleIssueResolved);
-        console.log('[Issues Page] Socket listeners cleaned up');
-      }
-    };
-  }, [socket, fetchIssues, isAdmin]); // Removed isConnected dependency to ensure listeners are set up
+      return () => {
+        socket.off('issue:created');
+        socket.off('issue:assigned');
+        socket.off('issue:unassigned');
+        socket.off('issue:status_updated');
+        socket.off('maintenance:logged');
+        socket.off('issue:resolved');
+      };
+    }
+  }, [socket, fetchIssues]);
 
   useEffect(() => {
     fetchIssues();
-  }, [status, priority, selectedTech]);
+  }, [status, priority, selectedTech, fetchIssues]); // Fixed deps
 
   const handleSearchKeyPress = (e) => {
     if (e.key === 'Enter') fetchIssues();
   };
 
-  const labelClass = 'text-[10px] text-[var(--text-secondary)] block uppercase tracking-wider font-semibold mb-1';
-
   return (
-    <div className="min-h-screen bg-[var(--bg)] p-4 md:p-6 transition-colors">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="min-h-[100dvh] bg-[var(--bg)] p-4 md:p-6 transition-colors">
+      <div className="max-w-7xl mx-auto space-y-6">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[var(--border)] pb-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[var(--border)] pb-5">
           <div>
-            <h1 className="text-2xl font-black text-[var(--text-primary)] tracking-tight">Issues Board</h1>
-            <p className="text-sm text-[var(--text-secondary)] font-light mt-0.5">
-              Review and manage logged incident reports and technician logs.
+            <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-primary)] tracking-tight">Issues Board</h1>
+            <p className="text-sm text-[var(--text-secondary)] mt-1 font-medium">
+              Review incident reports and manage dispatch queues.
             </p>
           </div>
           <button
             onClick={() => navigate('/assets')}
-            className="text-xs px-4 py-2 rounded-lg border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)] bg-[var(--surface)] transition-colors cursor-pointer"
+            className="btn-secondary text-xs"
           >
-            &larr; Assets Catalog
+            Asset Catalog &rarr;
           </button>
         </div>
 
-        {/* Filter controls */}
-        <div className={`grid grid-cols-1 gap-3 bg-[var(--surface)] border border-[var(--border)] p-4 rounded-xl ${isAdmin ? 'md:grid-cols-5' : 'md:grid-cols-4'}`}>
-          <div>
-            <label className={labelClass}>Search</label>
-            <div className="relative">
+        {/* Filter Bar */}
+        <div className="card p-4">
+          <div className="flex flex-col md:flex-row gap-3">
+            <div className="flex-1 relative">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)]" />
               <input
                 type="text"
-                placeholder="ID or title, press Enter..."
+                placeholder="Search ID, title, or asset..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={handleSearchKeyPress}
-                className="input-base font-mono-code text-xs py-1.5"
+                className="input-base pl-9 font-mono-code text-sm"
               />
-              {search && (
-                <button
-                  onClick={() => { setSearch(''); setTimeout(fetchIssues, 0); }}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-bold"
+            </div>
+            
+            <div className="flex gap-3 flex-wrap md:flex-nowrap">
+              <div className="relative flex-1 md:flex-none min-w-[140px]">
+                <Filter className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)] pointer-events-none" />
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  className="input-base pl-9 text-sm cursor-pointer appearance-none"
                 >
-                  &times;
-                </button>
+                  <option value="">All Statuses</option>
+                  {STATUS_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
+                </select>
+              </div>
+
+              <div className="relative flex-1 md:flex-none min-w-[140px]">
+                <AlertTriangle className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)] pointer-events-none" />
+                <select
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value)}
+                  className="input-base pl-9 text-sm cursor-pointer appearance-none"
+                >
+                  <option value="">All Priorities</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </div>
+
+              {isAdmin && (
+                <div className="relative flex-1 md:flex-none min-w-[160px]">
+                  <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)] pointer-events-none" />
+                  <select
+                    value={selectedTech}
+                    onChange={(e) => setSelectedTech(e.target.value)}
+                    className="input-base pl-9 text-sm cursor-pointer appearance-none"
+                  >
+                    <option value="">All Technicians</option>
+                    {technicians.map(t => <option key={t._id} value={t._id}>{t.name}</option>)}
+                  </select>
+                </div>
               )}
             </div>
-          </div>
-
-          <div>
-            <label className={labelClass}>Status</label>
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="input-base text-xs py-1.5 cursor-pointer"
-            >
-              <option value="">All Statuses</option>
-              {STATUS_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
-            </select>
-          </div>
-
-          <div>
-            <label className={labelClass}>Priority</label>
-            <select
-              value={priority}
-              onChange={(e) => setPriority(e.target.value)}
-              className="input-base text-xs py-1.5 cursor-pointer"
-            >
-              <option value="">All Priorities</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-              <option value="Critical">Critical</option>
-            </select>
-          </div>
-
-          {isAdmin && (
-            <div>
-              <label className={labelClass}>Technician</label>
-              <select
-                value={selectedTech}
-                onChange={(e) => setSelectedTech(e.target.value)}
-                className="input-base text-xs py-1.5 cursor-pointer"
-              >
-                <option value="">All Technicians</option>
-                {technicians.map(t => (
-                  <option key={t._id} value={t._id}>{t.name}</option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          <div className="flex items-end">
-            <button
-              onClick={fetchIssues}
-              className="btn-accent w-full py-1.5 text-xs"
-            >
-              Apply Filter
-            </button>
           </div>
         </div>
 
         {/* Content */}
         {loading ? (
-          <div className="py-12 text-center text-[var(--text-secondary)]">
-            <div className="w-6 h-6 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-            <p className="text-xs">Fetching incidents...</p>
+          <div className="space-y-3">
+             {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="h-20 skeleton rounded-xl" />
+            ))}
           </div>
         ) : error ? (
-          <div className="p-4 bg-[var(--critical-bg)] border border-[var(--danger)] text-[var(--danger)] rounded-xl text-center text-xs">
+          <div className="p-4 bg-[var(--critical-bg)] border border-[var(--danger)] text-[var(--danger)] rounded-xl text-center font-medium">
             {error}
           </div>
         ) : issues.length === 0 ? (
-          <div className="py-12 border border-dashed border-[var(--border)] rounded-xl text-center text-[var(--text-secondary)]">
-            <p className="text-sm font-light">No issues match the current filters.</p>
+          <div className="py-20 text-center border-2 border-dashed border-[var(--border)] rounded-2xl bg-[var(--surface)]">
+             <div className="w-12 h-12 rounded-full bg-[var(--surface-raised)] flex items-center justify-center mx-auto mb-4 text-[var(--text-tertiary)]">
+              <Search className="w-6 h-6" />
+            </div>
+            <h3 className="text-base font-semibold text-[var(--text-primary)] mb-1">No issues found</h3>
+            <p className="text-sm text-[var(--text-secondary)]">Adjust your filters to see more results.</p>
           </div>
         ) : (
-          <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden">
-            {/* Desktop table */}
-            <div className="overflow-x-auto hidden md:block">
-              <table className="w-full border-collapse text-left">
+          <div className="card overflow-hidden">
+            {/* Desktop Table */}
+            <div className="overflow-x-auto hidden lg:block">
+              <table className="w-full text-sm text-left border-collapse">
                 <thead>
-                  <tr className="bg-[var(--surface-raised)] border-b border-[var(--border)] text-[10px] text-[var(--text-secondary)] uppercase tracking-widest font-bold">
-                    <th className="p-4">Issue #</th>
-                    <th className="p-4">Asset</th>
-                    <th className="p-4">Summary</th>
-                    <th className="p-4">Priority</th>
-                    <th className="p-4">Status</th>
-                    <th className="p-4">Assigned To</th>
-                    <th className="p-4 text-right">Actions</th>
+                  <tr className="bg-[var(--surface-raised)] border-b border-[var(--border)] text-xs text-[var(--text-secondary)] uppercase tracking-wider font-semibold">
+                    <th className="px-5 py-4 w-32">Issue ID</th>
+                    <th className="px-5 py-4 w-48">Asset</th>
+                    <th className="px-5 py-4">Summary</th>
+                    <th className="px-5 py-4 w-32">Priority</th>
+                    <th className="px-5 py-4 w-40">Status</th>
+                    <th className="px-5 py-4 w-40">Assignee</th>
+                    <th className="px-5 py-4 w-16"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[var(--border)] text-xs">
+                <tbody className="divide-y divide-[var(--border)]">
                   {issues.map(issue => {
                     const isCritical = issue.priority === 'Critical';
                     return (
                       <tr
                         key={issue._id}
-                        className={`hover:bg-[var(--surface-raised)] transition-colors cursor-pointer ${isCritical ? 'border-l-4 border-l-[var(--danger)]' : ''}`}
                         onClick={() => navigate(`/issues/${issue._id}`)}
+                        className={`hover:bg-[var(--surface-raised)] transition-colors cursor-pointer group ${isCritical ? 'bg-[var(--critical-bg)] hover:bg-[var(--danger-muted)]' : ''}`}
                       >
-                        <td className="p-4 font-mono-code font-bold text-[var(--text-primary)] uppercase select-all text-xs">
+                        <td className="px-5 py-4 font-mono-code font-bold text-[var(--text-primary)]">
                           {issue.issueNumber}
                         </td>
-                        <td className="p-4">
-                          <p className="font-semibold text-[var(--text-primary)]">{issue.asset?.name || 'Unknown'}</p>
-                          <p className="font-mono-code text-[10px] text-[var(--text-secondary)] mt-0.5">{issue.asset?.assetCode || '—'}</p>
+                        <td className="px-5 py-4">
+                          <div className="font-semibold text-[var(--text-primary)] truncate max-w-[160px]">{issue.asset?.name || 'Unknown'}</div>
+                          <div className="font-mono-code text-[11px] text-[var(--text-secondary)] mt-0.5">{issue.asset?.assetCode || '—'}</div>
                         </td>
-                        <td className="p-4 max-w-xs">
-                          <p className="font-medium text-[var(--text-primary)] truncate">{issue.title}</p>
-                          <p className="text-[10px] text-[var(--text-secondary)] mt-0.5 italic">By: {issue.reporterName}</p>
+                        <td className="px-5 py-4">
+                          <div className="font-medium text-[var(--text-primary)] truncate max-w-sm">{issue.title}</div>
+                          <div className="text-[11px] text-[var(--text-secondary)] mt-0.5">By {issue.reporterName}</div>
                         </td>
-                        <td className="p-4"><PriorityBadge priority={issue.priority} /></td>
-                        <td className="p-4"><IssueBadge status={issue.status} /></td>
-                        <td className="p-4 text-[var(--text-secondary)]">
-                          {issue.assignedTechnician?.name || <span className="italic">Unassigned</span>}
+                        <td className="px-5 py-4"><PriorityBadge priority={issue.priority} /></td>
+                        <td className="px-5 py-4"><IssueBadge status={issue.status} /></td>
+                        <td className="px-5 py-4 text-[var(--text-secondary)] font-medium">
+                          {issue.assignedTechnician ? (
+                            <div className="flex items-center gap-2">
+                              <div className="w-5 h-5 rounded bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center text-[9px] uppercase font-bold text-[var(--text-primary)]">
+                                {issue.assignedTechnician.name.charAt(0)}
+                              </div>
+                              <span className="truncate max-w-[100px]">{issue.assignedTechnician.name}</span>
+                            </div>
+                          ) : (
+                            <span className="italic text-[var(--text-tertiary)]">Unassigned</span>
+                          )}
                         </td>
-                        <td className="p-4 text-right" onClick={(e) => e.stopPropagation()}>
-                          <button
-                            onClick={() => navigate(`/issues/${issue._id}`)}
-                            className="px-3 py-1 rounded-md text-[10px] font-semibold text-[var(--accent)] border border-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-all cursor-pointer"
-                          >
-                            Inspect
-                          </button>
+                        <td className="px-5 py-4 text-right">
+                          <ArrowRight className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)] transition-colors" />
                         </td>
                       </tr>
                     );
@@ -393,31 +290,35 @@ export default function Issues() {
               </table>
             </div>
 
-            {/* Mobile cards */}
-            <div className="md:hidden divide-y divide-[var(--border)]">
+            {/* Mobile / Tablet Cards */}
+            <div className="lg:hidden divide-y divide-[var(--border)]">
               {issues.map(issue => {
                 const isCritical = issue.priority === 'Critical';
                 return (
                   <div
                     key={issue._id}
-                    className={`p-4 space-y-3 active:bg-[var(--surface-raised)] transition-all cursor-pointer ${isCritical ? 'border-l-4 border-l-[var(--danger)]' : ''}`}
                     onClick={() => navigate(`/issues/${issue._id}`)}
+                    className={`p-4 space-y-3 transition-colors cursor-pointer ${isCritical ? 'bg-[var(--critical-bg)] active:bg-[var(--danger-muted)]' : 'hover:bg-[var(--surface-raised)] active:bg-[var(--surface-hover)]'}`}
                   >
-                    <div className="flex justify-between items-center">
-                      <span className="font-mono-code font-bold text-[var(--text-primary)] uppercase text-xs">{issue.issueNumber}</span>
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="font-mono-code font-bold text-[var(--text-primary)] text-sm">{issue.issueNumber}</span>
                       <IssueBadge status={issue.status} />
                     </div>
+                    
                     <div>
-                      <h4 className="font-semibold text-[var(--text-primary)] text-sm">{issue.title}</h4>
-                      <p className="text-xs text-[var(--text-secondary)] mt-0.5">
-                        Asset: <span className="font-mono-code text-[var(--accent)]">{issue.asset?.assetCode}</span> ({issue.asset?.name})
+                      <h4 className="font-bold text-[var(--text-primary)] text-base leading-tight mb-1">{issue.title}</h4>
+                      <p className="text-xs text-[var(--text-secondary)] flex items-center gap-1">
+                        Asset: <span className="font-mono-code font-semibold text-[var(--text-primary)]">{issue.asset?.assetCode}</span>
+                        <span className="truncate max-w-[120px]">({issue.asset?.name})</span>
                       </p>
                     </div>
-                    <div className="flex justify-between items-center text-[10px] pt-1">
+
+                    <div className="flex justify-between items-center pt-2 border-t border-[var(--border)] border-dashed">
                       <PriorityBadge priority={issue.priority} />
-                      <span className="text-[var(--text-secondary)]">
-                        Assignee: <span className="text-[var(--text-primary)] font-medium">{issue.assignedTechnician?.name || 'None'}</span>
-                      </span>
+                      <div className="text-xs flex items-center gap-1.5 text-[var(--text-secondary)]">
+                         <User className="w-3.5 h-3.5" />
+                         <span className="font-medium">{issue.assignedTechnician?.name || 'Unassigned'}</span>
+                      </div>
                     </div>
                   </div>
                 );
