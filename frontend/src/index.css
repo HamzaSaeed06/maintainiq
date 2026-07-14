@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* Dark-mode via .dark class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Register Inter as Tailwind's default sans-serif font */
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+/* ============================================================
+   GOOGLE FONTS — Inter (UI) + JetBrains Mono (codes/IDs)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ============================================================
+   DESIGN TOKENS: "Inspection Ticket" visual identity
+   Light = "Daylight", Dark = "Night Shift"
+   ============================================================ */
+:root {
+  /* Surfaces */
+  --bg:             #FAFAF7;
+  --surface:        #FFFFFF;
+  --surface-raised: #F5F4F0;
+  --border:         #E5E3DC;
+
+  /* Text */
+  --text-primary:   #1C1C1E;
+  --text-secondary: #6B6B66;
+
+  /* Signature accent: safety amber */
+  --accent:         #D97706;
+  --accent-hover:   #B45309;
+  --accent-contrast:#FFFFFF;
+
+  /* Semantic colors */
+  --success:        #16A34A;
+  --warning:        #D97706;
+  --danger:         #DC2626;
+  --critical-bg:    #FEF2F2;
+  --critical-border:#FECACA;
+
+  /* Status badge fills (light theme at reduced opacity) */
+  --status-reported-bg:   #FEF9C3;
+  --status-reported-text: #854D0E;
+  --status-assigned-bg:   #DBEAFE;
+  --status-assigned-text: #1E40AF;
+  --status-inspection-bg: #EDE9FE;
+  --status-inspection-text:#4C1D95;
+  --status-maintenance-bg:#FFEDD5;
+  --status-maintenance-text:#9A3412;
+  --status-waiting-bg:    #F3E8FF;
+  --status-waiting-text:  #6B21A8;
+  --status-resolved-bg:   #DCFCE7;
+  --status-resolved-text: #14532D;
+  --status-closed-bg:     #F3F4F6;
+  --status-closed-text:   #374151;
+  --status-reopened-bg:   #FFE4E6;
+  --status-reopened-text: #9F1239;
+}
+
+.dark {
+  /* Surfaces */
+  --bg:             #14161B;
+  --surface:        #1B1E25;
+  --surface-raised: #24272F;
+  --border:         #2E323C;
+
+  /* Text */
+  --text-primary:   #F2F1ED;
+  --text-secondary: #9B9B94;
+
+  /* Signature accent: brighter amber for dark */
+  --accent:         #F59E0B;
+  --accent-hover:   #FBBF24;
+  --accent-contrast:#14161B;
+
+  /* Semantic colors */
+  --success:        #22C55E;
+  --warning:        #F59E0B;
+  --danger:         #EF4444;
+  --critical-bg:    #2A1414;
+  --critical-border:#7F1D1D;
+
+  /* Status badge fills (dark theme) */
+  --status-reported-bg:   #422006;
+  --status-reported-text: #FDE68A;
+  --status-assigned-bg:   #1E3A5F;
+  --status-assigned-text: #93C5FD;
+  --status-inspection-bg: #2D1B69;
+  --status-inspection-text:#C4B5FD;
+  --status-maintenance-bg:#431407;
+  --status-maintenance-text:#FED7AA;
+  --status-waiting-bg:    #3B0764;
+  --status-waiting-text:  #D8B4FE;
+  --status-resolved-bg:   #052E16;
+  --status-resolved-text: #86EFAC;
+  --status-closed-bg:     #1F2937;
+  --status-closed-text:   #9CA3AF;
+  --status-reopened-bg:   #4C0519;
+  --status-reopened-text: #FDA4AF;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  background-color: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Monospace class for asset codes, issue numbers, timestamps */
+.font-mono-code {
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', 'Fira Code', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   STAMPED TICKET BADGE SYSTEM
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid transparent;
+}
+
+/* Status badges */
+.badge-reported      { background: var(--status-reported-bg);    color: var(--status-reported-text); }
+.badge-assigned      { background: var(--status-assigned-bg);    color: var(--status-assigned-text); }
+.badge-inspection    { background: var(--status-inspection-bg);  color: var(--status-inspection-text); }
+.badge-maintenance   { background: var(--status-maintenance-bg); color: var(--status-maintenance-text); }
+.badge-waiting       { background: var(--status-waiting-bg);     color: var(--status-waiting-text); }
+.badge-resolved      { background: var(--status-resolved-bg);    color: var(--status-resolved-text); }
+.badge-closed        { background: var(--status-closed-bg);      color: var(--status-closed-text); }
+.badge-reopened      { background: var(--status-reopened-bg);    color: var(--status-reopened-text); }
+
+/* Priority badges */
+.badge-low      { background: var(--status-closed-bg);      color: var(--status-closed-text); }
+.badge-medium   { background: var(--status-assigned-bg);    color: var(--status-assigned-text); }
+.badge-high     { background: var(--status-maintenance-bg); color: var(--status-maintenance-text); }
+.badge-critical { background: var(--critical-bg); color: var(--danger); border-color: var(--critical-border); }
+
+/* ============================================================
+   UTILITY HELPERS
+   ============================================================ */
+/* Card surface */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+/* Input base */
+.input-base {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.input-base::placeholder { color: var(--text-secondary); }
+.input-base:focus { border-color: var(--accent); }
+
+/* Accent button */
+.btn-accent {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+.btn-accent:hover  { background: var(--accent-hover); }
+.btn-accent:disabled { opacity: 0.55; cursor: not-allowed; }
