@@ -157,6 +157,16 @@ body {
 }
 
 /* ============================================================
+   COMPONENT LAYER
+   Wrapped in @layer components so Tailwind utility classes
+   (e.g. pl-9, w-10, h-10 passed alongside .input-base/.badge/etc.)
+   always win the cascade regardless of source order — otherwise
+   these unlayered rules beat utilities and things like icon
+   padding on inputs silently collapse.
+   ============================================================ */
+@layer components {
+
+/* ============================================================
    STAMPED TICKET BADGE SYSTEM
    ============================================================ */
 .badge {
@@ -332,3 +342,5 @@ body {
     background-position: -200% 0;
   }
 }
+
+} /* end @layer components */

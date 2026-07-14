@@ -6,6 +6,7 @@ import { useSocket } from '../hooks/useSocket';
 import { queuedToast } from '../lib/toastQueue';
 import { Search, Filter, AlertTriangle, ArrowRight, User } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Avatar from '../components/Avatar';
 
 const STATUS_OPTIONS = ['Reported', 'Assigned', 'Inspection Started', 'Maintenance In Progress', 'Waiting for Parts', 'Resolved', 'Closed', 'Reopened'];
 
@@ -273,9 +274,7 @@ export default function Issues() {
                         <td className="px-5 py-4 text-[var(--text-secondary)] font-medium">
                           {issue.assignedTechnician ? (
                             <div className="flex items-center gap-2">
-                              <div className="w-5 h-5 rounded bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center text-[9px] uppercase font-bold text-[var(--text-primary)]">
-                                {issue.assignedTechnician.name.charAt(0)}
-                              </div>
+                              <Avatar user={issue.assignedTechnician} size="sm" />
                               <span className="truncate max-w-[100px]">{issue.assignedTechnician.name}</span>
                             </div>
                           ) : (

@@ -1,0 +1,361 @@
+
+> backend@1.0.0 dev
+> nodemon src/server.js
+
+[1G[0K[33m[nodemon] 3.1.14[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,cjs,json[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ⌘ enable debugging { debug: true }[0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-00.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+[0mGET /api/auth/technicians [36m304[0m 42.606 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [32m200[0m 58.059 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.997 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 18.235 ms - -[0m
+Socket.io: User connected: qE30oJhpeWGoxHvRAAAB
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+Socket.io: User disconnected: qE30oJhpeWGoxHvRAAAB Reason: client namespace disconnect
+[0mGET /api/auth/technicians [36m304[0m 11.873 ms - -[0m
+[0mGET /api/issues/6a56222816afe166e977f631 [32m200[0m 45.290 ms - 809[0m
+[0mGET /api/auth/technicians [36m304[0m 8.701 ms - -[0m
+[0mGET /api/issues/6a56222816afe166e977f631 [36m304[0m 16.489 ms - -[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ◈ secrets for agents [www.dotenvx.com][0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ⌘ custom filepath { path: '/custom/path/.env' }[0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-00.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+[Issue Controller] Technician assigned: {
+  issueId: new ObjectId([32m'6a56222816afe166e977f631'[39m),
+  technicianId: [32m'6a55e6681b890bf3a0219310'[39m,
+  technicianName: [32m'Ali'[39m,
+  previousTechnician: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+  status: [32m'Assigned'[39m
+}
+[Issue Controller] Emitting issue:assigned event
+[Socket Events] Emitting issue:assigned to technician: 6a55e6681b890bf3a0219310
+[Socket Events] Sent to room: technician_6a55e6681b890bf3a0219310
+[Socket Events] Sent to room: admin
+[Issue Controller] Emitting issue:unassigned event to previous technician: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m)
+[Issue Controller] Sent to room: technician_6a55e6681b890bf3a0219310
+[0mPATCH /api/issues/6a56222816afe166e977f631/assign [32m200[0m 57.247 ms - 592[0m
+[0mGET /api/issues/6a56222816afe166e977f631 [36m304[0m 24.757 ms - -[0m
+[Issue Controller] Technician assigned: {
+  issueId: new ObjectId([32m'6a56222816afe166e977f631'[39m),
+  technicianId: [32m'6a55e6681b890bf3a0219310'[39m,
+  technicianName: [32m'Ali'[39m,
+  previousTechnician: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+  status: [32m'Assigned'[39m
+}
+[Issue Controller] Emitting issue:assigned event
+[Socket Events] Emitting issue:assigned to technician: 6a55e6681b890bf3a0219310
+[Socket Events] Sent to room: technician_6a55e6681b890bf3a0219310
+[Socket Events] Sent to room: admin
+[Issue Controller] Emitting issue:unassigned event to previous technician: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m)
+[Issue Controller] Sent to room: technician_6a55e6681b890bf3a0219310
+[0mPATCH /api/issues/6a56222816afe166e977f631/assign [32m200[0m 40.401 ms - 592[0m
+[0mGET /api/issues/6a56222816afe166e977f631 [36m304[0m 22.051 ms - -[0m
+✉️  Email successfully sent to alitechnician@gmail.com (Subject: "[MaintainIQ] 🔧 New Assignment: ISS-0011")
+✉️  Email successfully sent to alitechnician@gmail.com (Subject: "[MaintainIQ] 🔧 New Assignment: ISS-0011")
+Socket.io: User connected: ZzccXsen4h3H67SZAAAC
+Socket.io: User dev joined their room
+Socket.io: Admin joined admin room
+[0mGET /api/auth/technicians [32m200[0m 53.760 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [32m200[0m 56.543 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 15.052 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 32.012 ms - -[0m
+Socket.io: User disconnected: ZzccXsen4h3H67SZAAAC Reason: transport close
+[0mGET /api/assets?page=1&limit=20 [36m304[0m 31.573 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 11.798 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 36.353 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 10.215 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 29.092 ms - -[0m
+Socket.io: User connected: pS0ww2O_asOZIOosAAAE
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+Socket.io: User disconnected: pS0ww2O_asOZIOosAAAE Reason: client namespace disconnect
+[0mGET /api/auth/technicians [36m304[0m 12.631 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 10.098 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 21.403 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 9.355 ms - -[0m
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:381:13[90m)[39m
+    at wrappedValidations.<computed> [as xForwardedForHeader] [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:704:22[90m)[39m
+    at Object.keyGenerator [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:811:20[90m)[39m
+    at [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:893:32
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:854:5 {
+  code: [32m'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR'[39m,
+  help: [32m'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'[39m
+}
+[0mGET /api/public/assets/08d5cfa2 [36m304[0m 13.000 ms - -[0m
+[0mGET /api/public/assets/08d5cfa2 [36m304[0m 8.900 ms - -[0m
+[0mGET /api/assets?page=1&limit=20 [36m304[0m 21.368 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 13.066 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 18.067 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 10.245 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 17.974 ms - -[0m
+Socket.io: User connected: 8Kruub73n5hoddkrAAAG
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+[0mGET /api/assets?page=1&limit=20 [32m200[0m 23.105 ms - -[0m
+Socket.io: User disconnected: 8Kruub73n5hoddkrAAAG Reason: client namespace disconnect
+[0mGET /api/auth/technicians [36m304[0m 8.945 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.575 ms - -[0m
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:381:13[90m)[39m
+    at wrappedValidations.<computed> [as xForwardedForHeader] [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:704:22[90m)[39m
+    at Object.keyGenerator [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:811:20[90m)[39m
+    at [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:893:32
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:854:5 {
+  code: [32m'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR'[39m,
+  help: [32m'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'[39m
+}
+[0mPOST /api/auth/login [32m200[0m 294.128 ms - 453[0m
+[0mGET /api/dashboard/stats [32m200[0m 18.182 ms - 188[0m
+[0mGET /api/dashboard/stats [36m304[0m 17.510 ms - -[0m
+Socket.io: User connected: mQUS1Y5Z_vzdCRVaAAAI
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+Socket.io: User disconnected: mQUS1Y5Z_vzdCRVaAAAI Reason: client namespace disconnect
+[0mGET /api/issues?page=1&limit=20 [32m200[0m 15.809 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 15.607 ms - -[0m
+Socket.io: User connected: g5dJBSqo9R4hM9khAAAK
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+Socket.io: User disconnected: g5dJBSqo9R4hM9khAAAK Reason: client namespace disconnect
+[0mPOST /api/auth/login [32m200[0m 280.054 ms - 453[0m
+[0mGET /api/dashboard/stats [36m304[0m 31.214 ms - -[0m
+[0mGET /api/dashboard/stats [36m304[0m 18.821 ms - -[0m
+Socket.io: User connected: j1KBTrT94lMsNmM-AAAM
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+Socket.io: User disconnected: j1KBTrT94lMsNmM-AAAM Reason: client namespace disconnect
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 14.997 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 13.408 ms - -[0m
+Socket.io: User connected: xU2rCkzxdmgLZsDQAAAO
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+Socket.io: User disconnected: xU2rCkzxdmgLZsDQAAAO Reason: client namespace disconnect
+[0mGET /api/issues/6a56222816afe166e977f631 [32m200[0m 22.725 ms - 809[0m
+[0mGET /api/issues/6a56222816afe166e977f631 [36m304[0m 17.718 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 14.533 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 14.483 ms - -[0m
+Socket.io: User connected: k3MySQB4RcWM0n_pAAAQ
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+[0mGET /api/auth/technicians [36m304[0m 12.595 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 17.957 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 9.369 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 20.308 ms - -[0m
+Socket.io: User connected: UOUkMAqTxmA22-sYAAAS
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ⌘ enable debugging { debug: true }[0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-01.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 29.250 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 15.803 ms - -[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ◈ secrets for agents [www.dotenvx.com][0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-02.wwepqns.mongodb.net
+Socket.io: User connected: QlTPtx8lsMxaDOTNAAAB
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ⌘ enable debugging { debug: true }[0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-00.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+Socket.io: User connected: hZKPEMx59mTwE85fAAAB
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:381:13[90m)[39m
+    at wrappedValidations.<computed> [as xForwardedForHeader] [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:704:22[90m)[39m
+    at Object.keyGenerator [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:811:20[90m)[39m
+    at [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:893:32
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:854:5 {
+  code: [32m'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR'[39m,
+  help: [32m'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'[39m
+}
+ApiError: Invalid email or password
+    at [90m/home/runner/workspace/backend/[39msrc/controllers/auth.controller.js:58:17 {
+  statusCode: [33m401[39m,
+  code: [32m'INVALID_CREDENTIALS'[39m,
+  success: [33mfalse[39m
+}
+[0mPOST /api/auth/login [33m401[0m 304.814 ms - 94[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ⌘ suppress logs { quiet: true }[0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-00.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:381:13[90m)[39m
+    at wrappedValidations.<computed> [as xForwardedForHeader] [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:704:22[90m)[39m
+    at Object.keyGenerator [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:811:20[90m)[39m
+    at [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:893:32
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:854:5 {
+  code: [32m'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR'[39m,
+  help: [32m'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'[39m
+}
+[0mPOST /api/auth/login [32m200[0m 363.073 ms - 471[0m
+[0mGET /api/dashboard/stats [36m304[0m 33.668 ms - -[0m
+[0mGET /api/dashboard/stats [36m304[0m 16.953 ms - -[0m
+Socket.io: User connected: e0LSh73tabX8ValsAAAB
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+Socket.io: User disconnected: e0LSh73tabX8ValsAAAB Reason: client namespace disconnect
+[0mGET /api/auth/technicians [32m200[0m 13.745 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 25.384 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.799 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 16.649 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 9.707 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 17.372 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 9.288 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 16.013 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 10.258 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 17.264 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 7.934 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 13.881 ms - -[0m
+Socket.io: User connected: 6eYvTLSCKdUAjbH1AAAD
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+[0mGET /api/dashboard/stats [36m304[0m 26.573 ms - -[0m
+[0mGET /api/dashboard/stats [36m304[0m 17.983 ms - -[0m
+Socket.io: User connected: TH0XpbozzNjYa57xAAAF
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+Socket.io: User disconnected: TH0XpbozzNjYa57xAAAF Reason: client namespace disconnect
+[0mGET /api/auth/technicians [36m304[0m 13.741 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 22.302 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 12.357 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 18.001 ms - -[0m
+Socket.io: User connected: 7D1v2PdgHvrtkTDqAAAH
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+[0mGET /api/auth/technicians [36m304[0m 9.735 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 20.865 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 27.890 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 16.862 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 15.980 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 23.390 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 11.736 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 15.635 ms - -[0m
+Socket.io: User disconnected: 6eYvTLSCKdUAjbH1AAAD Reason: transport close
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 21.183 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 17.373 ms - -[0m
+Socket.io: User connected: 5x3VTyIwMbhXrK6mAAAJ
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+[0mGET /api/auth/technicians [36m304[0m 9.238 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 16.088 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.009 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 14.152 ms - -[0m
+[0mGET /api/dashboard/stats [36m304[0m 17.542 ms - -[0m
+[0mGET /api/dashboard/stats [36m304[0m 18.160 ms - -[0m
+Socket.io: User connected: NuNyejLmkdLMyLpbAAAL
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+Socket.io: User disconnected: NuNyejLmkdLMyLpbAAAL Reason: client namespace disconnect
+[0mGET /api/auth/technicians [36m304[0m 11.575 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.344 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 11.328 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.778 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 9.525 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 10.359 ms - -[0m
+[0mGET /api/auth/technicians?page=1&limit=10 [32m200[0m 11.990 ms - -[0m
+[0mGET /api/auth/technicians?page=1&limit=10 [36m304[0m 24.617 ms - -[0m
+[0mGET /api/auth/technicians?page=1&limit=10 [36m304[0m 14.283 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 10.474 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 18.688 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 12.435 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 18.623 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 10.295 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 21.220 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.939 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 13.269 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 11.261 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 16.265 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 9.952 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 24.002 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 15.154 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 20.303 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 35.775 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 40.013 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 9.960 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 18.845 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.382 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 17.054 ms - -[0m
+Socket.io: User disconnected: 5x3VTyIwMbhXrK6mAAAJ Reason: client namespace disconnect
+[0mGET /api/auth/technicians [36m304[0m 16.278 ms - -[0m
+Socket.io: User disconnected: 7D1v2PdgHvrtkTDqAAAH Reason: client namespace disconnect
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 27.517 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 14.770 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 7.547 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 15.670 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.344 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 16.087 ms - -[0m
+Socket.io: User connected: RtyDPKli-jXelyTsAAAN
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+Socket.io: User disconnected: RtyDPKli-jXelyTsAAAN Reason: client namespace disconnect
+[0mGET /api/auth/technicians [36m304[0m 20.349 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 26.189 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 89.859 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 9.639 ms - -[0m
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 17.810 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 7.712 ms - -[0m
+Socket.io: User connected: EYEtFrUOaRC-jcvMAAAP
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 15.356 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.407 ms - -[0m
+Socket.io: User 6a55e6681b890bf3a0219310 joined their room
+Socket.io: Technician 6a55e6681b890bf3a0219310 joined their room
+[0mGET /api/issues?page=1&limit=20 [36m304[0m 12.624 ms - -[0m

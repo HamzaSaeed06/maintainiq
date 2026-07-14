@@ -77,8 +77,59 @@ const me = asyncHandler(async (req, res) => {
 
 // List technicians (admin only)
 const getTechnicians = asyncHandler(async (req, res) => {
-  const technicians = await User.find({ role: 'technician' }).select('name email phone isActive createdAt');
-  res.status(200).json(new ApiResponse(200, technicians, 'Technicians retrieved successfully'));
+  const { page = 1, limit = 20 } = req.query;
+  const skip = (Number(page) - 1) * Number(limit);
+  const filter = { role: 'technician' };
+
+  const [technicians, total] = await Promise.all([
+    User.find(filter)
+      .select('name email phone isActive createdAt avatarUrl')
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(Number(limit)),
+    User.countDocuments(filter),
+  ]);
+
+  res.status(200).json(new ApiResponse(200, {
+    technicians,
+    pagination: { total, page: Number(page), limit: Number(limit), pages: Math.ceil(total / Number(limit)) || 1 },
+  }, 'Technicians retrieved successfully'));
+});
+
+// Upload/replace a user's avatar (admin can set anyone's; a user can set their own)
+const uploadAvatar = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  if (req.user.role !== 'admin' && req.user.id !== id) {
+    return next(new ApiError(403, 'You can only update your own avatar', 'FORBIDDEN'));
+  }
+
+  if (!req.file) {
+    return next(new ApiError(400, 'An image file is required', 'BAD_REQUEST'));
+  }
+
+  const user = await User.findById(id);
+  if (!user) {
+    return next(new ApiError(404, 'User not found', 'NOT_FOUND'));
+  }
+
+  const cloudinary = require('../config/cloudinary');
+  const fs = require('fs');
+  try {
+    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'maintainiq/avatars',
+      transformation: [{ width: 256, height: 256, crop: 'fill', gravity: 'face' }],
+    });
+    user.avatarUrl = uploadResult.secure_url;
+    await user.save();
+  } finally {
+    try { fs.unlinkSync(req.file.path); } catch (e) {}
+  }
+
+  const userResponse = user.toObject();
+  delete userResponse.password;
+
+  res.status(200).json(new ApiResponse(200, userResponse, 'Avatar updated successfully'));
 });
 
 // Delete user (admin only)
@@ -134,4 +185,5 @@ module.exports = {
   getTechnicians,
   deleteUser,
   toggleUserStatus,
+  uploadAvatar,
 };

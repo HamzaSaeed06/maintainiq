@@ -1,0 +1,71 @@
+Uncaught TypeError: technicians.map is not a function
+    at ManageUsers (ManageUsers.jsx:461:122)
+    at renderWithHooks (chunk-EJTTOCY5.js?v=f47e1be8:11548:26)
+    at updateFunctionComponent (chunk-EJTTOCY5.js?v=f47e1be8:14582:28)
+    at beginWork (chunk-EJTTOCY5.js?v=f47e1be8:15924:22)
+    at HTMLUnknownElement.callCallback2 (chunk-EJTTOCY5.js?v=f47e1be8:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-EJTTOCY5.js?v=f47e1be8:3699:24)
+    at invokeGuardedCallback (chunk-EJTTOCY5.js?v=f47e1be8:3733:39)
+    at beginWork$1 (chunk-EJTTOCY5.js?v=f47e1be8:19765:15)
+    at performUnitOfWork (chunk-EJTTOCY5.js?v=f47e1be8:19198:20)
+    at workLoopSync (chunk-EJTTOCY5.js?v=f47e1be8:19137:13)
+chunk-EJTTOCY5.js?v=f47e1be8:14032 The above error occurred in the <ManageUsers> component:
+
+    at ManageUsers (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/src/pages/ManageUsers.jsx:31:20)
+    at RenderedRoute (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:6669:26)
+    at Outlet (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:7534:26)
+    at main
+    at div
+    at AuthLayout
+    at PrivateRoute (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/src/components/PrivateRoute.jsx:18:40)
+    at RenderedRoute (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:6669:26)
+    at Routes (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:7604:3)
+    at Router (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:7543:13)
+    at BrowserRouter (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:10859:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-EJTTOCY5.js?v=f47e1be8:14032
+chunk-EJTTOCY5.js?v=f47e1be8:19413 Uncaught TypeError: technicians.map is not a function
+    at ManageUsers (ManageUsers.jsx:461:122)
+    at renderWithHooks (chunk-EJTTOCY5.js?v=f47e1be8:11548:26)
+    at updateFunctionComponent (chunk-EJTTOCY5.js?v=f47e1be8:14582:28)
+    at beginWork (chunk-EJTTOCY5.js?v=f47e1be8:15924:22)
+    at beginWork$1 (chunk-EJTTOCY5.js?v=f47e1be8:19753:22)
+    at performUnitOfWork (chunk-EJTTOCY5.js?v=f47e1be8:19198:20)
+    at workLoopSync (chunk-EJTTOCY5.js?v=f47e1be8:19137:13)
+    at renderRootSync (chunk-EJTTOCY5.js?v=f47e1be8:19116:15)
+    at recoverFromConcurrentError (chunk-EJTTOCY5.js?v=f47e1be8:18736:28)
+    at performConcurrentWorkOnRoot (chunk-EJTTOCY5.js?v=f47e1be8:18684:30)
+2ManageUsers.jsx?t=1784042888056:462 Uncaught TypeError: technicians.map is not a function
+    at ManageUsers (ManageUsers.jsx?t=1784042888056:462:122)
+    at renderWithHooks (chunk-EJTTOCY5.js?v=f47e1be8:11548:26)
+    at updateFunctionComponent (chunk-EJTTOCY5.js?v=f47e1be8:14582:28)
+    at beginWork (chunk-EJTTOCY5.js?v=f47e1be8:15924:22)
+    at HTMLUnknownElement.callCallback2 (chunk-EJTTOCY5.js?v=f47e1be8:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-EJTTOCY5.js?v=f47e1be8:3699:24)
+    at invokeGuardedCallback (chunk-EJTTOCY5.js?v=f47e1be8:3733:39)
+    at beginWork$1 (chunk-EJTTOCY5.js?v=f47e1be8:19765:15)
+    at performUnitOfWork (chunk-EJTTOCY5.js?v=f47e1be8:19198:20)
+    at workLoopSync (chunk-EJTTOCY5.js?v=f47e1be8:19137:13)
+chunk-EJTTOCY5.js?v=f47e1be8:14032 The above error occurred in the <ManageUsers> component:
+
+    at ManageUsers (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/src/pages/ManageUsers.jsx?t=1784042888056:32:20)
+    at RenderedRoute (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:6669:26)
+    at Outlet (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:7534:26)
+    at main
+    at div
+    at AuthLayout
+    at PrivateRoute (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/src/components/PrivateRoute.jsx:18:40)
+    at RenderedRoute (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:6669:26)
+    at Routes (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:7604:3)
+    at Router (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:7543:13)
+    at BrowserRouter (https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=f47e1be8:10859:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-EJTTOCY5.js?v=f47e1be8:14032
+chunk-EJTTOCY5.js?v=f47e1be8:19413 Uncaught TypeError: technicians.map is not a function
+    at ManageUsers (ManageUsers.jsx?t=1784042888056:462:122)

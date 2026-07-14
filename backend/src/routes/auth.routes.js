@@ -1,8 +1,9 @@
 const express = require('express');
-const { register, login, me, getTechnicians, deleteUser, toggleUserStatus } = require('../controllers/auth.controller');
+const { register, login, me, getTechnicians, deleteUser, toggleUserStatus, uploadAvatar } = require('../controllers/auth.controller');
 const auth = require('../middleware/auth');
 const { requireRole } = require('../middleware/rbac');
 const { authLimiter } = require('../middleware/rateLimiter');
+const upload = require('../middleware/upload');
 
 const router = express.Router();
 
@@ -15,7 +16,8 @@ router.get('/technicians', auth, requireRole('admin'), getTechnicians);
 router.delete('/:id', auth, requireRole('admin'), deleteUser);
 router.patch('/:id/toggle-status', auth, requireRole('admin'), toggleUserStatus);
 
-// Auth required
+// Auth required — admin can set anyone's avatar, a user can set their own
+router.patch('/:id/avatar', auth, upload.single('avatar'), uploadAvatar);
 router.get('/me', auth, me);
 
 module.exports = router;

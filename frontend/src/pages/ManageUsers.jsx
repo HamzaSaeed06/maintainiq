@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import ConfirmModal from '../components/ConfirmModal';
+import Avatar from '../components/Avatar';
 import { Users, UserPlus, Trash2, Power, ShieldAlert, CheckCircle2, XCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -15,6 +16,7 @@ const errorClass = 'text-[var(--danger)] text-xs mt-1 font-medium';
 export default function ManageUsers() {
   const navigate = useNavigate();
   const [technicians, setTechnicians] = useState([]);
+  const [pagination, setPagination] = useState({ total: 0, page: 1, pages: 1 });
   const [listLoading, setListLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [deleteModal, setDeleteModal] = useState({ isOpen: false, userId: null, userName: '' });
@@ -36,18 +38,24 @@ export default function ManageUsers() {
     }
   }, []);
 
-  const fetchTechnicians = async () => {
+  const fetchTechnicians = async (page = 1) => {
     setListLoading(true);
     try {
       const res = await axios.get(`${API_URL}/auth/technicians`, {
+        params: { page, limit: 10 },
         headers: { Authorization: `Bearer ${token}` },
       });
-      setTechnicians(res.data.data || []);
+      setTechnicians(res.data.data.technicians || []);
+      setPagination(res.data.data.pagination || { total: 0, page: 1, pages: 1 });
     } catch (err) {
       toast.error(err.response?.data?.error?.message || 'Failed to load technicians.');
     } finally {
       setListLoading(false);
     }
+  };
+
+  const handleAvatarUploaded = (techId, updatedUser) => {
+    setTechnicians((prev) => prev.map((t) => (t._id === techId ? { ...t, avatarUrl: updatedUser.avatarUrl } : t)));
   };
 
   const onSubmit = async (data) => {
@@ -211,7 +219,7 @@ export default function ManageUsers() {
                   Team Directory
                 </h2>
                 <span className="font-mono-code text-xs font-semibold text-[var(--text-secondary)] bg-[var(--surface)] border border-[var(--border)] px-2.5 py-1 rounded-md shadow-sm">
-                  {technicians.length} Member{technicians.length !== 1 ? 's' : ''}
+                  {pagination.total} Member{pagination.total !== 1 ? 's' : ''}
                 </span>
               </div>
 
@@ -236,9 +244,12 @@ export default function ManageUsers() {
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         
                         <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-full bg-[var(--surface)] border border-[var(--border)] shadow-sm flex items-center justify-center text-sm font-bold text-[var(--text-secondary)] uppercase shrink-0">
-                            {tech.name.charAt(0)}
-                          </div>
+                          <Avatar
+                            user={tech}
+                            size="lg"
+                            editable
+                            onUploaded={(updated) => handleAvatarUploaded(tech._id, updated)}
+                          />
                           <div>
                             <div className="flex items-center gap-2 mb-0.5">
                               <p className="text-sm font-bold text-[var(--text-primary)] leading-none">{tech.name}</p>
@@ -280,6 +291,24 @@ export default function ManageUsers() {
 
                       </div>
                     </div>
+                  ))}
+                </div>
+              )}
+
+              {pagination.pages > 1 && !listLoading && (
+                <div className="flex justify-center gap-1.5 py-4 border-t border-[var(--border)]">
+                  {Array.from({ length: pagination.pages }, (_, i) => i + 1).map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => fetchTechnicians(p)}
+                      className={`min-w-[32px] h-8 px-2 rounded-md text-sm font-medium cursor-pointer transition-colors ${
+                        p === pagination.page
+                          ? 'bg-[var(--text-primary)] text-[var(--bg)]'
+                          : 'bg-[var(--surface)] border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]'
+                      }`}
+                    >
+                      {p}
+                    </button>
                   ))}
                 </div>
               )}

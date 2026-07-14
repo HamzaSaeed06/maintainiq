@@ -1,0 +1,616 @@
+
+> backend@1.0.0 dev
+> nodemon src/server.js
+
+[1G[0K[33m[nodemon] 3.1.14[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,cjs,json[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ⌘ enable debugging { debug: true }[0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-01.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+ApiError: Email and password are required
+    at [90m/home/runner/workspace/backend/[39msrc/controllers/auth.controller.js:46:17
+    at [90m/home/runner/workspace/backend/[39msrc/utils/asyncHandler.js:2:19
+    at Layer.handleRequest [90m(/home/runner/workspace/backend/[39mnode_modules/[4mrouter[24m/lib/layer.js:152:17[90m)[39m
+    at next [90m(/home/runner/workspace/backend/[39mnode_modules/[4mrouter[24m/lib/route.js:157:13[90m)[39m
+    at [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:999:7
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:854:5 {
+  statusCode: [33m400[39m,
+  code: [32m'BAD_REQUEST'[39m,
+  success: [33mfalse[39m
+}
+[0mPOST /api/auth/login [33m400[0m 15.217 ms - 92[0m
+ApiError: Invalid email or password
+    at [90m/home/runner/workspace/backend/[39msrc/controllers/auth.controller.js:58:17 {
+  statusCode: [33m401[39m,
+  code: [32m'INVALID_CREDENTIALS'[39m,
+  success: [33mfalse[39m
+}
+[0mPOST /api/auth/login [33m401[0m 282.595 ms - 94[0m
+[0mPOST /api/auth/login [32m200[0m 317.989 ms - 456[0m
+[0mGET /api/dashboard/stats [32m200[0m 50.902 ms - 188[0m
+[0mGET /api/dashboard/stats [36m304[0m 20.785 ms - -[0m
+Socket.io: User connected: O2jOcE20TZdqfxXNAAAB
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+Socket.io: User disconnected: O2jOcE20TZdqfxXNAAAB Reason: client namespace disconnect
+[0mGET /api/assets?page=1&limit=20 [32m200[0m 34.709 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c [32m200[0m 20.981 ms - 619[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/qr [32m200[0m 15.125 ms - 333[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/history [32m200[0m 29.054 ms - 415[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c [36m304[0m 15.382 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/qr [36m304[0m 7.278 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/history [36m304[0m 20.703 ms - -[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ⌘ suppress logs { quiet: true }[0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-02.wwepqns.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ◈ secrets for agents [www.dotenvx.com][0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-00.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+[0mGET /api/dashboard/stats [32m200[0m 28.831 ms - 188[0m
+[0mGET /api/assets [32m200[0m 35.811 ms - 53767[0m
+[0mPOST /api/assets [32m201[0m 1586.090 ms - 587[0m
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:381:13[90m)[39m
+    at wrappedValidations.<computed> [as xForwardedForHeader] [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:704:22[90m)[39m
+    at Object.keyGenerator [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:811:20[90m)[39m
+    at [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:893:32
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:854:5 {
+  code: [32m'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR'[39m,
+  help: [32m'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'[39m
+}
+[0mGET /api/public/assets/08d5cfa2 [32m200[0m 16.246 ms - 338[0m
+[0mGET /api/public/assets/08d5cfa2 [36m304[0m 9.318 ms - -[0m
+[0mGET /api/public/assets/60d82263 [32m200[0m 13.848 ms - 370[0m
+[0mGET /api/public/assets/60d82263 [36m304[0m 8.385 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/qr [36m304[0m 13.461 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c [36m304[0m 20.955 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/history [36m304[0m 21.435 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/qr [36m304[0m 8.783 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c [36m304[0m 13.511 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/history [36m304[0m 15.849 ms - -[0m
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:381:13[90m)[39m
+    at wrappedValidations.<computed> [as xForwardedForHeader] [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:704:22[90m)[39m
+    at Object.keyGenerator [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:811:20[90m)[39m
+    at [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:893:32
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:854:5 {
+  code: [32m'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR'[39m,
+  help: [32m'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'[39m
+}
+[AI Service] Trying model: gemini-1.5-pro
+[AI Service] Model gemini-1.5-pro failed: Gemini status 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[AI Service] Trying model: gemini-1.5-flash
+[AI Service] Model gemini-1.5-flash failed: Gemini status 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[AI Service] Trying model: gemini-pro
+[AI Service] Model gemini-pro failed: Gemini status 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[AI Service] Trying model: gemini-1.0-pro
+[AI Service] Model gemini-1.0-pro failed: Gemini status 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.0-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[AI Service] All Gemini models failed. Using mock fallback.
+[0mPOST /api/public/assets/08d5cfa2/ai-triage [32m200[0m 1384.897 ms - 465[0m
+[0mGET /api/dashboard/stats [32m200[0m 65.581 ms - 188[0m
+[0mGET /api/dashboard/stats [36m304[0m 21.966 ms - -[0m
+Socket.io: User connected: yO6LKNL--GEnnfDvAAAC
+Socket.io: User dev joined their room
+Socket.io: Admin joined admin room
+Socket.io: User disconnected: yO6LKNL--GEnnfDvAAAC Reason: transport close
+[0mGET /api/assets?page=1&limit=20 [32m200[0m 26.832 ms - -[0m
+[Issue Controller] Fetching issues with filter: {}
+[Issue Controller] User role: admin
+[Issue Controller] User ID: new ObjectId([32m'6a528ba44dba5e0ff24eaa14'[39m)
+[0mGET /api/auth/technicians [32m200[0m 15.802 ms - -[0m
+[Issue Controller] Issues found: [33m11[39m
+[Issue Controller] Issue IDs: [
+  {
+    id: new ObjectId([32m'6a56222816afe166e977f631'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52e8b9b7e528dd51faa754'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a528bc98c55ff6dbad6b6df'[39m),
+      name: [32m'John Tech'[39m,
+      email: [32m'tech_1783794633099@maintainiq.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52cb5fb221b71cb9de061a'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52b4211f0e708e413bc90e'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a529a444bfba07b533aff66'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798340212@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52a8e09096f91a95ec03e3'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a8d89096f91a95ec03e0'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783802071935@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52a11652755dedc1ad588d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a11352755dedc1ad588a'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783800083128@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529a474bfba07b533aff69'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a529a444bfba07b533aff66'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798340212@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529960961f0772e31276b7'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52995d961f0772e31276b4'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798109374@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529873e2fa20c6e0c8797b'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52986fe2fa20c6e0c87978'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783797871765@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529625929a6b99d5fb036d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a0f652755dedc1ad5887'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783800054154@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52953e80f014a6aef16e2d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  }
+]
+[0mGET /api/issues [32m200[0m 38.777 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.873 ms - -[0m
+[Issue Controller] Fetching issues with filter: {}
+[Issue Controller] User role: admin
+[Issue Controller] User ID: new ObjectId([32m'6a528ba44dba5e0ff24eaa14'[39m)
+[Issue Controller] Issues found: [33m11[39m
+[Issue Controller] Issue IDs: [
+  {
+    id: new ObjectId([32m'6a56222816afe166e977f631'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52e8b9b7e528dd51faa754'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a528bc98c55ff6dbad6b6df'[39m),
+      name: [32m'John Tech'[39m,
+      email: [32m'tech_1783794633099@maintainiq.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52cb5fb221b71cb9de061a'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52b4211f0e708e413bc90e'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a529a444bfba07b533aff66'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798340212@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52a8e09096f91a95ec03e3'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a8d89096f91a95ec03e0'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783802071935@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52a11652755dedc1ad588d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a11352755dedc1ad588a'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783800083128@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529a474bfba07b533aff69'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a529a444bfba07b533aff66'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798340212@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529960961f0772e31276b7'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52995d961f0772e31276b4'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798109374@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529873e2fa20c6e0c8797b'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52986fe2fa20c6e0c87978'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783797871765@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529625929a6b99d5fb036d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a0f652755dedc1ad5887'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783800054154@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52953e80f014a6aef16e2d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  }
+]
+[0mGET /api/issues [36m304[0m 44.732 ms - -[0m
+Socket.io: User connected: 8JcSgeC_v_5dlBSWAAAF
+Socket.io: User dev joined their room
+Socket.io: Admin joined admin room
+Socket.io: User disconnected: 8JcSgeC_v_5dlBSWAAAF Reason: transport close
+[0mGET /api/public/assets/08d5cfa2 [36m304[0m 9.708 ms - -[0m
+[0mGET /api/public/assets/08d5cfa2 [36m304[0m 8.386 ms - -[0m
+[0mGET /api/public/assets/08d5cfa2 [36m304[0m 17.509 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c [36m304[0m 28.539 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/qr [36m304[0m 17.394 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/history [36m304[0m 42.882 ms - -[0m
+[0mGET /api/public/assets/08d5cfa2 [36m304[0m 9.551 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/qr [36m304[0m 15.288 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c [36m304[0m 22.179 ms - -[0m
+[0mGET /api/assets/6a55e62365a1524a2ec1cc7c/history [36m304[0m 28.802 ms - -[0m
+[0mDELETE /api/assets/6a56520a6389e52cd374283f [32m200[0m 29.681 ms - 84[0m
+[0mGET /api/assets?page=1&limit=20 [36m304[0m 21.810 ms - -[0m
+[0mGET /api/assets?page=1&limit=20&search=gsgs [32m200[0m 15.075 ms - 151[0m
+[0mGET /api/assets?page=1&limit=20&search=gsg [32m200[0m 9.673 ms - 151[0m
+[0mGET /api/assets?page=1&limit=20 [36m304[0m 20.890 ms - -[0m
+[0mGET /api/assets?page=1&limit=20&search=hhdhd [32m200[0m 18.851 ms - 151[0m
+[0mGET /api/assets?page=1&limit=20&search=hhdh [32m200[0m 11.662 ms - 151[0m
+[0mGET /api/assets?page=1&limit=20 [36m304[0m 22.965 ms - -[0m
+[Issue Controller] Fetching issues with filter: {}
+[Issue Controller] User role: admin
+[Issue Controller] User ID: new ObjectId([32m'6a528ba44dba5e0ff24eaa14'[39m)
+[0mGET /api/auth/technicians [32m200[0m 12.761 ms - -[0m
+[Issue Controller] Issues found: [33m11[39m
+[Issue Controller] Issue IDs: [
+  {
+    id: new ObjectId([32m'6a56222816afe166e977f631'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52e8b9b7e528dd51faa754'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a528bc98c55ff6dbad6b6df'[39m),
+      name: [32m'John Tech'[39m,
+      email: [32m'tech_1783794633099@maintainiq.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52cb5fb221b71cb9de061a'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52b4211f0e708e413bc90e'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a529a444bfba07b533aff66'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798340212@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52a8e09096f91a95ec03e3'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a8d89096f91a95ec03e0'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783802071935@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52a11652755dedc1ad588d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a11352755dedc1ad588a'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783800083128@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529a474bfba07b533aff69'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a529a444bfba07b533aff66'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798340212@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529960961f0772e31276b7'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52995d961f0772e31276b4'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798109374@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529873e2fa20c6e0c8797b'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52986fe2fa20c6e0c87978'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783797871765@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529625929a6b99d5fb036d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a0f652755dedc1ad5887'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783800054154@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52953e80f014a6aef16e2d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  }
+]
+[0mGET /api/issues [32m200[0m 29.056 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.688 ms - -[0m
+[Issue Controller] Fetching issues with filter: {}
+[Issue Controller] User role: admin
+[Issue Controller] User ID: new ObjectId([32m'6a528ba44dba5e0ff24eaa14'[39m)
+[Issue Controller] Issues found: [33m11[39m
+[Issue Controller] Issue IDs: [
+  {
+    id: new ObjectId([32m'6a56222816afe166e977f631'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52e8b9b7e528dd51faa754'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a528bc98c55ff6dbad6b6df'[39m),
+      name: [32m'John Tech'[39m,
+      email: [32m'tech_1783794633099@maintainiq.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52cb5fb221b71cb9de061a'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52b4211f0e708e413bc90e'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a529a444bfba07b533aff66'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798340212@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52a8e09096f91a95ec03e3'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a8d89096f91a95ec03e0'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783802071935@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52a11652755dedc1ad588d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a11352755dedc1ad588a'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783800083128@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529a474bfba07b533aff69'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a529a444bfba07b533aff66'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798340212@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529960961f0772e31276b7'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52995d961f0772e31276b4'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783798109374@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529873e2fa20c6e0c8797b'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52986fe2fa20c6e0c87978'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783797871765@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a529625929a6b99d5fb036d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a52a0f652755dedc1ad5887'[39m),
+      name: [32m'Rob Tech'[39m,
+      email: [32m'tech_1783800054154@example.com'[39m
+    }
+  },
+  {
+    id: new ObjectId([32m'6a52953e80f014a6aef16e2d'[39m),
+    assignedTo: {
+      _id: new ObjectId([32m'6a55e6681b890bf3a0219310'[39m),
+      name: [32m'Ali'[39m,
+      email: [32m'alitechnician@gmail.com'[39m
+    }
+  }
+]
+[0mGET /api/issues [36m304[0m 20.701 ms - -[0m
+Socket.io: User connected: ylpLJmEUAMnnG1EaAAAH
+Socket.io: User 6a528ba44dba5e0ff24eaa14 joined their room
+Socket.io: Admin joined admin room
+Socket.io: User disconnected: ylpLJmEUAMnnG1EaAAAH Reason: client namespace disconnect
+[0mGET /api/auth/technicians [36m304[0m 9.660 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 8.807 ms - -[0m
+[0mPATCH /api/auth/6a528bc98c55ff6dbad6b6df/toggle-status [32m200[0m 37.742 ms - 98[0m
+[0mGET /api/auth/technicians [32m200[0m 8.454 ms - -[0m
+[0mGET /api/public/assets/08d5cfa2 [36m304[0m 9.278 ms - -[0m
+[0mGET /api/public/assets/08d5cfa2 [36m304[0m 8.072 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 16.616 ms - -[0m
+[0mGET /api/auth/technicians [36m304[0m 9.494 ms - -[0m
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:381:13[90m)[39m
+    at wrappedValidations.<computed> [as xForwardedForHeader] [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:704:22[90m)[39m
+    at Object.keyGenerator [90m(/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:811:20[90m)[39m
+    at [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:893:32
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async [90m/home/runner/workspace/backend/[39mnode_modules/[4mexpress-rate-limit[24m/dist/index.cjs:854:5 {
+  code: [32m'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR'[39m,
+  help: [32m'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'[39m
+}
+ApiError: Email is already registered
+    at [90m/home/runner/workspace/backend/[39msrc/controllers/auth.controller.js:22:17
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m {
+  statusCode: [33m400[39m,
+  code: [32m'EMAIL_ALREADY_EXISTS'[39m,
+  success: [33mfalse[39m
+}
+[0mPOST /api/auth/register [33m400[0m 11.832 ms - 97[0m
+[0mPOST /api/auth/register [32m201[0m 296.570 ms - 261[0m
+[0mGET /api/auth/technicians [32m200[0m 8.747 ms - -[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ⌘ multiple files { path: ['.env.local', '.env'] }[0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-00.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ◈ secrets for agents [www.dotenvx.com][0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-00.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.
+[0mGET /api/assets?page=1&limit=20 [36m304[0m 40.563 ms - -[0m
+[32m[nodemon] restarting child process[39m
+[32m[nodemon] starting `node src/server.js`[39m
+◇ injected env (0) from .env [2m// tip: ⌘ multiple files { path: ['.env.local', '.env'] }[0m
+⚠️  REDIS_URL not set — rate limiting will use in-memory store
+✅ Nodemailer SMTP transporter initialized
+Server is running in development mode on port 8000
+MongoDB Connected: undefined
+MongoDB Connected: ac-etaizcz-shard-00-00.wwepqns.mongodb.net
+✅ Default admin credentials synced from env on startup.
+✅ Default admin credentials synced from env on startup.

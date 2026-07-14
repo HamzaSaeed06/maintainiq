@@ -1,0 +1,416 @@
+
+> frontend@0.0.0 dev
+> vite
+
+[1G[0K
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m495[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.24.0.2:[1m5000[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[33mFiles in the public directory are served at the root path.
+Instead of [36m/public/asset/08d5cfa2[33m, use [36m/asset/08d5cfa2[33m.[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:25:51 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:25:51 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: Missing closing } at @layer components[39m
+  Plugin: [35m@tailwindcss/vite:generate:serve[39m
+  File: [36m/home/runner/workspace/frontend/src/index.css[39m
+      at Se (file:///home/runner/workspace/frontend/node_modules/tailwindcss/dist/lib.mjs:1:4039)
+      at Ef (file:///home/runner/workspace/frontend/node_modules/tailwindcss/dist/lib.mjs:38:1384)
+      at lu (file:///home/runner/workspace/frontend/node_modules/@tailwindcss/node/dist/index.mjs:10:3464)
+      at _.generate (file:///home/runner/workspace/frontend/node_modules/@tailwindcss/vite/dist/index.mjs:1:5692)
+      at async TransformPluginContext.handler (file:///home/runner/workspace/frontend/node_modules/@tailwindcss/vite/dist/index.mjs:1:3102)
+      at async PluginContainer.transform (file:///home/runner/workspace/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///home/runner/workspace/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:25:51 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: Missing closing } at @layer components[39m
+  Plugin: [35m@tailwindcss/vite:generate:serve[39m
+  File: [36m/home/runner/workspace/frontend/src/index.css[39m
+      at Se (file:///home/runner/workspace/frontend/node_modules/tailwindcss/dist/lib.mjs:1:4039)
+      at Ef (file:///home/runner/workspace/frontend/node_modules/tailwindcss/dist/lib.mjs:38:1384)
+      at lu (file:///home/runner/workspace/frontend/node_modules/@tailwindcss/node/dist/index.mjs:10:3464)
+      at _.generate (file:///home/runner/workspace/frontend/node_modules/@tailwindcss/vite/dist/index.mjs:1:5692)
+      at async TransformPluginContext.handler (file:///home/runner/workspace/frontend/node_modules/@tailwindcss/vite/dist/index.mjs:1:3102)
+      at async PluginContainer.transform (file:///home/runner/workspace/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///home/runner/workspace/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27) [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:25:59 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:26:19 PM[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:27:17 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Navbar.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:27:25 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Navbar.jsx, /src/index.css[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:27:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Navbar.jsx, /src/index.css[22m [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:28:08 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ManageUsers.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:28:16 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ManageUsers.jsx, /src/index.css[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:28:26 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ManageUsers.jsx, /src/index.css[22m [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:28:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ManageUsers.jsx, /src/index.css[22m [33m(x4)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:29:09 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ManageUsers.jsx, /src/index.css[22m [33m(x5)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:29:21 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ManageUsers.jsx, /src/index.css[22m [33m(x6)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:29:58 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Issues.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m3:30:18 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Issues.jsx, /src/index.css[22m [33m(x2)[39m

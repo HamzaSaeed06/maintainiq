@@ -2,13 +2,20 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ThemeToggle from './ThemeToggle';
+import Avatar from './Avatar';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
   const isAdmin = user.role === 'admin';
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleAvatarUploaded = (updatedUser) => {
+    const merged = { ...user, avatarUrl: updatedUser.avatarUrl };
+    localStorage.setItem('user', JSON.stringify(merged));
+    setUser(merged);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -57,9 +64,7 @@ export default function Navbar() {
                 {user.role || 'guest'}
               </span>
             </div>
-            <div className="w-8 h-8 rounded-full bg-[var(--surface-raised)] border border-[var(--border)] flex items-center justify-center text-sm font-semibold text-[var(--text-secondary)] uppercase">
-              {(user.name || 'U').charAt(0)}
-            </div>
+            <Avatar user={user} size="md" editable userId={user._id || user.id} onUploaded={handleAvatarUploaded} />
           </div>
           <button
             onClick={handleLogout}
@@ -117,9 +122,7 @@ export default function Navbar() {
               )}
               <div className="flex items-center justify-between pt-4 mt-2 border-t border-[var(--border)]">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[var(--surface-raised)] border border-[var(--border)] flex items-center justify-center text-sm font-semibold text-[var(--text-secondary)] uppercase">
-                    {(user.name || 'U').charAt(0)}
-                  </div>
+                  <Avatar user={user} size="md" editable userId={user._id || user.id} onUploaded={handleAvatarUploaded} />
                   <div>
                     <p className="text-sm font-medium text-[var(--text-primary)]">{user.name}</p>
                     <p className="text-xs text-[var(--text-secondary)] uppercase tracking-wider">{user.role}</p>
