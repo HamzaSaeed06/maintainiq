@@ -2,7 +2,13 @@ import { useEffect, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
 import useAuthStore from '../store/authStore';
 
-const SOCKET_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+const API_URL_ENV = import.meta.env.VITE_API_URL;
+// Empty string means "connect to the current origin" (used when the API is proxied
+// same-origin, e.g. in the Replit dev environment). Only fall back to localhost when
+// VITE_API_URL is not set at all.
+const SOCKET_URL = API_URL_ENV === undefined
+  ? 'http://localhost:5000'
+  : API_URL_ENV.replace('/api', '');
 
 export const useSocket = () => {
   const [socket, setSocket] = useState(null);

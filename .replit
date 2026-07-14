@@ -4,3 +4,57 @@ expertMode = true
 
 [nix]
 channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+CLOUDINARY_CLOUD_NAME = "xhezvrms"
+DEFAULT_ADMIN_EMAIL = "admin@maintainiq.com"
+FRONTEND_URL = "https://5d5d222c-7b61-4229-af36-c605f1adb9c2-00-1xa313kp4hy2e.pike.replit.dev"
+JWT_EXPIRES_IN = "7d"
+NODE_ENV = "development"
+PORT = "8000"
+SMTP_FROM = "MaintainIQ <noreply@maintainiq.com>"
+SMTP_HOST = "smtp.gmail.com"
+SMTP_PORT = "587"
+VITE_API_URL = "/api"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Backend API"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Backend API"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend && npm run dev"
+waitForPort = 8000
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend && npm run dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
