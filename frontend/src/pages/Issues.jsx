@@ -41,6 +41,7 @@ export default function Issues() {
   const qPriority = searchParams.get('priority') || '';
 
   const [issues, setIssues] = useState([]);
+  const [pagination, setPagination] = useState({ total: 0, page: 1, pages: 1 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [status, setStatus] = useState(qStatus);
@@ -64,12 +65,12 @@ export default function Issues() {
     }
   }, []);
 
-  const fetchIssues = useCallback(async () => {
+  const fetchIssues = useCallback(async (page = 1) => {
     setLoading(true);
     setError('');
     try {
       const token = localStorage.getItem('token');
-      const params = {};
+      const params = { page, limit: 20 };
       if (status) params.status = status;
       if (priority) params.priority = priority;
       if (selectedTech) params.technician = selectedTech;
@@ -80,7 +81,8 @@ export default function Issues() {
         params,
         headers: { Authorization: `Bearer ${token}` }
       });
-      setIssues(res.data.data);
+      setIssues(res.data.data.issues);
+      setPagination(res.data.data.pagination);
     } catch (err) {
       const msg = err.response?.data?.error?.message || 'Failed to load issues.';
       setError(msg);
@@ -140,7 +142,7 @@ export default function Issues() {
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-primary)] tracking-tight">Issues Board</h1>
             <p className="text-sm text-[var(--text-secondary)] mt-1 font-medium">
-              Review incident reports and manage dispatch queues.
+              Review incident reports and manage dispatch queues. {pagination.total} total.
             </p>
           </div>
           <button
@@ -324,6 +326,25 @@ export default function Issues() {
                 );
               })}
             </div>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {pagination.pages > 1 && !loading && (
+          <div className="flex justify-center gap-1.5 mt-6">
+            {Array.from({ length: pagination.pages }, (_, i) => i + 1).map(p => (
+              <button
+                key={p}
+                onClick={() => fetchIssues(p)}
+                className={`min-w-[32px] h-8 px-2 rounded-md text-sm font-medium cursor-pointer transition-colors ${
+                  p === pagination.page
+                    ? 'bg-[var(--text-primary)] text-[var(--bg)]'
+                    : 'bg-[var(--surface)] border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                {p}
+              </button>
+            ))}
           </div>
         )}
       </div>

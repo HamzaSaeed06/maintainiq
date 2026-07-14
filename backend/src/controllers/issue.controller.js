@@ -30,7 +30,7 @@ const VALID_TRANSITIONS = {
 
 // GET /api/issues
 const getIssues = asyncHandler(async (req, res, next) => {
-  const { status, priority, technician, asset, search } = req.query;
+  const { status, priority, technician, asset, search, page = 1, limit = 20 } = req.query;
   const filter = {};
 
   if (status) {
@@ -57,19 +57,21 @@ const getIssues = asyncHandler(async (req, res, next) => {
     filter.assignedTechnician = req.user._id;
   }
 
-  console.log('[Issue Controller] Fetching issues with filter:', filter);
-  console.log('[Issue Controller] User role:', req.user.role);
-  console.log('[Issue Controller] User ID:', req.user._id);
+  const skip = (Number(page) - 1) * Number(limit);
+  const [issues, total] = await Promise.all([
+    Issue.find(filter)
+      .sort({ createdAt: -1 })
+      .populate('asset', 'name assetCode')
+      .populate('assignedTechnician', 'name email')
+      .skip(skip)
+      .limit(Number(limit)),
+    Issue.countDocuments(filter),
+  ]);
 
-  const issues = await Issue.find(filter)
-    .sort({ createdAt: -1 })
-    .populate('asset', 'name assetCode')
-    .populate('assignedTechnician', 'name email');
-
-  console.log('[Issue Controller] Issues found:', issues.length);
-  console.log('[Issue Controller] Issue IDs:', issues.map(i => ({ id: i._id, assignedTo: i.assignedTechnician })));
-
-  res.status(200).json(new ApiResponse(200, issues, 'Issues retrieved successfully'));
+  res.status(200).json(new ApiResponse(200, {
+    issues,
+    pagination: { total, page: Number(page), limit: Number(limit), pages: Math.ceil(total / Number(limit)) || 1 },
+  }, 'Issues retrieved successfully'));
 });
 
 // GET /api/issues/:id
