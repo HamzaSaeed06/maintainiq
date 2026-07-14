@@ -1,0 +1,421 @@
+# Production UI/UX Rebuild Prompt
+
+Your task is to completely rebuild the entire frontend UI/UX from scratch while keeping the existing functionality intact.
+
+Do not simply redesign screens. Think and work like a Senior Product Designer + Senior Frontend Engineer building a production-ready SaaS product used by thousands of users.
+
+## Core Objective
+
+Create a premium, modern, responsive, highly polished, production-quality user interface that feels like software from companies such as Stripe, Linear, Vercel, Notion, Figma, Framer, or Raycast.
+
+Every page, every component, every interaction, and every pixel should look intentional.
+
+---
+
+# Think Beyond the Design
+
+Do not only improve what already exists.
+
+Review the entire project and independently identify opportunities to improve:
+
+* Layout
+* User Experience
+* Visual hierarchy
+* Accessibility
+* Navigation
+* Empty states
+* Loading states
+* Error handling
+* Forms
+* Tables
+* Cards
+* Buttons
+* Modals
+* Mobile experience
+* Desktop experience
+* User flow
+
+If something feels outdated or unprofessional, redesign it without asking for permission.
+
+---
+
+# Production Quality Expectations
+
+The application should never feel like:
+
+* a student project
+* a template
+* a UI kit demo
+* an unfinished MVP
+
+Instead it should feel like a real commercial product.
+
+Every page should have:
+
+* proper spacing
+* balanced layouts
+* consistent alignment
+* excellent typography
+* clean visual hierarchy
+* intuitive navigation
+* polished interactions
+* professional responsiveness
+
+---
+
+# Visual Design Principles
+
+Maintain a consistent design language across the entire application.
+
+Ensure:
+
+* consistent border radius
+* consistent shadows
+* consistent spacing system
+* consistent icon sizing
+* consistent typography scale
+* consistent color palette
+* consistent component behavior
+* consistent hover styles
+* consistent transitions
+
+Avoid visual inconsistency.
+
+---
+
+# Modern UX
+
+Redesign the experience with modern UX principles.
+
+Improve:
+
+* user flow
+* discoverability
+* readability
+* navigation
+* interaction feedback
+* information architecture
+* visual hierarchy
+
+Reduce unnecessary clicks wherever possible.
+
+Users should always know:
+
+* where they are
+* what they can do
+* what happens next
+
+---
+
+# Responsive Design
+
+Every screen must work perfectly on:
+
+* Mobile
+* Tablet
+* Laptop
+* Desktop
+* Large screens
+
+Nothing should overflow.
+
+Nothing should break.
+
+No horizontal scrolling.
+
+Layouts should adapt naturally.
+
+---
+
+# Micro Interactions
+
+Every interactive element should feel alive.
+
+Examples include:
+
+* hover effects
+* button press feedback
+* subtle scaling
+* elevation changes
+* icon animations
+* ripple effects where appropriate
+* smooth transitions
+* animated focus states
+* animated dropdowns
+* animated accordions
+* animated tabs
+* animated navigation
+* animated cards
+
+Animations should enhance usability—not distract.
+
+---
+
+# Professional Animations
+
+Use tasteful production-level animations.
+
+Examples:
+
+* page transitions
+* fade
+* slide
+* scale
+* stagger animations
+* smooth modal animations
+* sidebar transitions
+* drawer animations
+* tooltip animations
+* notification animations
+* loading transitions
+* skeleton loaders
+* progress animations
+
+Animation timing should feel natural.
+
+Avoid excessive motion.
+
+---
+
+# Component Quality
+
+Every component should feel handcrafted.
+
+Buttons
+
+* multiple variants
+* loading state
+* disabled state
+* hover state
+* active state
+* focus state
+
+Inputs
+
+* validation
+* helper text
+* focus animation
+* error state
+* success state
+* disabled state
+
+Cards
+
+* hover elevation
+* subtle movement
+* clean spacing
+* proper shadows
+
+Tables
+
+* sticky headers if needed
+* hover rows
+* sorting
+* filtering
+* responsive behavior
+
+Forms
+
+* inline validation
+* loading feedback
+* success feedback
+* keyboard friendly
+
+---
+
+# Loading Experience
+
+Never show blank screens.
+
+Implement:
+
+* skeleton loading
+* shimmer effects
+* progressive loading
+* optimistic UI where appropriate
+* loading indicators
+* graceful transitions
+
+---
+
+# Empty States
+
+Every empty state should include:
+
+* meaningful illustration or icon
+* explanation
+* call-to-action
+* guidance for next step
+
+Avoid plain "No Data Found".
+
+---
+
+# Error States
+
+Handle every error professionally.
+
+Include:
+
+* friendly messaging
+* retry button
+* recovery suggestions
+* visual feedback
+
+---
+
+# Notifications
+
+Improve all notifications.
+
+Use:
+
+* toast messages
+* success feedback
+* warning feedback
+* informative errors
+
+Messages should be concise and helpful.
+
+---
+
+# Accessibility
+
+Follow accessibility best practices.
+
+Include:
+
+* keyboard navigation
+* focus visibility
+* ARIA labels where appropriate
+* sufficient color contrast
+* readable typography
+* accessible forms
+
+---
+
+# Navigation
+
+Navigation should feel effortless.
+
+Improve:
+
+* active states
+* breadcrumbs where useful
+* page titles
+* section headers
+* contextual actions
+* logical grouping
+
+---
+
+# Icons
+
+Use icons consistently.
+
+Icons should:
+
+* match style
+* have equal visual weight
+* improve comprehension
+* never feel random
+
+---
+
+# Typography
+
+Use a professional typography system.
+
+Maintain:
+
+* proper font hierarchy
+* readable line heights
+* consistent font weights
+* balanced spacing
+* comfortable reading width
+
+---
+
+# Colors
+
+Use a refined color system.
+
+Maintain consistency across:
+
+* backgrounds
+* borders
+* text
+* buttons
+* cards
+* alerts
+* charts
+* status indicators
+
+Avoid random colors.
+
+---
+
+# Spacing
+
+Respect an 8px spacing system (or similar consistent system).
+
+Nothing should feel cramped.
+
+Nothing should feel too far apart.
+
+---
+
+# Polish Every Detail
+
+Pay attention to tiny production details, including:
+
+* button alignment
+* icon alignment
+* consistent padding
+* hover cursor
+* disabled opacity
+* transition timing
+* scrollbar styling
+* text truncation
+* avatar fallbacks
+* image placeholders
+* responsive grids
+* consistent border thickness
+* modal backdrop blur
+* dropdown positioning
+* tooltip positioning
+* menu animations
+* focus rings
+* scroll restoration
+* smooth scrolling
+* sticky headers where useful
+
+These details separate amateur UI from professional UI.
+
+---
+
+# Code Quality
+
+While rebuilding:
+
+* remove duplicated UI
+* remove dead code
+* improve component structure
+* improve maintainability
+* improve reusability
+* split reusable components
+* follow clean architecture
+
+---
+
+# Independent Decision Making
+
+Do not ask for permission for every UI improvement.
+
+Review the entire project carefully.
+
+If you identify opportunities to improve the interface, UX, responsiveness, animations, accessibility, or component quality, implement those improvements proactively while preserving functionality.
+
+Think like a product team preparing this application for a real production launch.
+
+The final result should feel premium, polished, modern, scalable, intuitive, and indistinguishable from a professionally designed commercial web application.
